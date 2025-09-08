@@ -1,0 +1,56 @@
+.materialsAndDesc{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 34px;
+}
+.lesson{
+    display: flex;
+    flex-direction: row;
+    background-color: #d9d9d9;
+    justify-content: center;
+    font-family: Montserrat-bold,sans-serif;
+    font-size: 72px;
+    height: 500px;
+    width: 100%;
+}
+.lesson video{
+    position: relative;
+    left: -5%;
+    margin-top: 10px;
+}
+.lesson p{
+    margin-bottom:0px;
+}
+.timeAndType{
+    display: flex;
+    flex-direction: row;
+    font-family: Montserrat-medium,sans-serif;
+    font-size: 32px;
+    margin-left: 65px;
+}
+.timeAndType img{
+    margin-right: 15px;
+    margin-top: 0px;
+    height: 48px;
+}
+.time{
+    display: flex;
+    flex-direction: row;
+    margin-right: 33px;
+}
+.time p{
+    margin-top: 0;
+}
+.type p{
+    margin-top: 0;
+}
+.type{
+    display: flex;
+    flex-direction: row;
+}
+@font-face {
+    font-family: "Montserrat-medium";
+    src: url('../../Styles/fonts/static/Montserrat-Medium.ttf') format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}

@@ -1,0 +1,39 @@
+.header{
+    display: flex;
+    top : 0;
+    left: 0;
+    width: 100%;
+    justify-content: space-between;
+    gap: 580px;
+}
+.header img{
+    width: 35px;
+    height: 35px;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+.title{
+    display: block;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 48px;
+    margin-top: 0px;
+    margin-left: 35px;
+    margin-bottom: 0px;
+    margin-right: auto;
+    color: #3E3BFF;
+}
+.buttons{
+    display: flex;
+    gap: 8px;
+    flex-grow: 1;
+    margin-left: auto;
+}
+.selectedTab{
+    border-bottom: 4px solid black;
+}
+@font-face {
+    font-family: "Montserrat-bold";
+    src: url('../Styles/fonts/static/Montserrat-Bold.ttf') format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}

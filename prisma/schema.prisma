@@ -1,0 +1,127 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model students {
+  id               Int                @id @default(autoincrement())
+  name             String
+  login            String
+  password         String
+  surname          String?
+  gender           String?
+  nickname         String?
+  email            String?
+  age              Int?
+  courses_students courses_students[]
+  teacher_student  teacher_student[]
+}
+
+model teacher_student {
+  teacher_id Int
+  student_id Int
+  students   students @relation(fields: [student_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  teachers   teachers @relation(fields: [teacher_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([teacher_id, student_id])
+}
+
+model teachers {
+  id              Int               @id @default(autoincrement())
+  name            String
+  surname         String
+  email           String
+  login           String
+  password        String
+  gender          String?
+  courses         courses[]
+  teacher_student teacher_student[]
+}
+
+model courses {
+  id               Int                @id @default(autoincrement())
+  name             String
+  description      String             @db.VarChar(500)
+  titleImage       String
+  time             Int
+  authorid         Int
+  teachers         teachers           @relation(fields: [authorid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fkauthor")
+  courses_modules  courses_modules[]
+  courses_students courses_students[]
+  courses_tags     courses_tags[]
+}
+
+model courses_modules {
+  courseid Int
+  moduleid Int
+  courses  courses @relation(fields: [courseid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  modules  modules @relation(fields: [moduleid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([courseid, moduleid])
+}
+
+model courses_tags {
+  courseid Int
+  tagid    Int
+  courses  courses @relation(fields: [courseid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tags     tags    @relation(fields: [tagid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([courseid, tagid])
+}
+
+model lesson {
+  id                Int                 @id @default(autoincrement())
+  name              String
+  type              String
+  description       String?             @db.VarChar(250)
+  video             String?
+  time              Int?
+  numberoflesson    Int?
+  lessons_materials lessons_materials[]
+  modules           modules[]
+}
+
+model lessons_materials {
+  lessonid   Int
+  materialid Int
+  lesson     lesson    @relation(fields: [lessonid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  materials  materials @relation(fields: [materialid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([lessonid, materialid])
+}
+
+model materials {
+  id                Int                 @id @default(autoincrement())
+  material          String?
+  materialName      String?
+  lessons_materials lessons_materials[]
+}
+
+model modules {
+  id              Int               @id @default(autoincrement())
+  lessonid        Int
+  numofmodule     Int
+  name            String
+  courses_modules courses_modules[]
+  lesson          lesson            @relation(fields: [lessonid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model tags {
+  id           Int            @id @default(autoincrement())
+  tag          String?
+  courses_tags courses_tags[]
+}
+
+model courses_students {
+  courseid  Int
+  studentid Int
+  courses   courses  @relation(fields: [courseid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  students  students @relation(fields: [studentid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([courseid, studentid])
+}

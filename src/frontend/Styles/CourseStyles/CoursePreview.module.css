@@ -1,0 +1,91 @@
+.preview{
+    background-color: #d9d9d9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.title{
+    font-size: 72px;
+    font-family: Montserrat-bold,sans-serif;
+    margin-bottom: 15px;
+}
+.author{
+    font-size: 32px;
+    font-family: Montserrat-medium,sans-serif;
+    margin-top: 0;
+}
+.info{
+    margin-left: 60px;
+    max-width: 50vw;
+}
+.main{
+    overflow-y: auto;
+    height: 90vh;
+}
+.titleImage{
+    display: flex;
+    margin-left: 35px;
+    width: 40vw;
+    height: 40vh;
+    margin-right: 60px;
+}
+.lessonAndStudentAmount{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: Montserrat-medium,sans-serif;
+    font-size: 32px;
+}
+.lessonAndStudentAmount img{
+    margin-right: 1vw;
+}
+.lessonAndStudentAmount p{
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+.studentAmount{
+    margin-left: 8vw;
+    display: flex;
+    flex-direction: row;
+}
+.lessonAmount{
+    display: flex;
+    flex-direction: row;
+}
+.authorAndTitle{
+    display: flex;
+    flex-direction: column;
+}
+.timeAndTags{
+    font-family: Montserrat-medium,sans-serif;
+    font-size: 32px;
+}
+.timeAndTags p{
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+.timeAndTags img{
+    margin-right: 1vw;
+}
+.time{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 4vh;
+    margin-top: 2vh;
+}
+.tags{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 4vh;
+}
+.signUp{
+    padding: 14px 50px;
+    margin-bottom: 4vh;
+    background-color: #3E3BFF;
+    border-radius: 16px;
+    border-color: #3E3BFF;
+    color : white;
+    font-weight: 550;
+    font-family: Montserrat-medium, sans-serif;
+    font-size: 24px;
+}

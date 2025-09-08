@@ -1,0 +1,67 @@
+.courseCard{
+    max-width: 350px;
+    max-height: 350px;
+    margin-left: 50px;
+    border: 2px solid #b3b3b3;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 45px;
+}
+.titleImage{
+    max-width: 330px;
+    max-height: 180px;
+    margin-top: 5px;
+    margin-left: 8px;
+    display: flex;
+    justify-content: center;
+}
+.timeAndStudentAmount{
+    margin-top: 20px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.authorAndButton{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+.studentAmount{
+    font-family: Montserrat,sans-serif;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 12px;
+}
+.time{
+    font-family: Montserrat,sans-serif;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 12px;
+}
+.name{
+    font-family: Montserrat-bold,sans-serif;
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 12px;
+}
+.author{
+    font-family: Montserrat,sans-serif;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 12px;
+}
+.button{
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 12px;
+}

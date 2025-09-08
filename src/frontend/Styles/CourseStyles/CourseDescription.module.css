@@ -1,0 +1,17 @@
+.desc{
+    margin-left: 3%;
+}
+.title{
+    font-family: Montserrat-bold,sans-serif;
+    font-size: 48px;
+    margin-bottom: 30px;
+}
+.descText{
+    font-size: 40px;
+    font-family: Montserrat-medium,sans-serif;
+    margin-top: 0;
+}
+.descTextBlock{
+    width: 60vw;
+    overflow-wrap: break-word;
+}

@@ -1,0 +1,50 @@
+.material{
+    background-color: #c3c3c3;
+    margin: 0px 30px 7px 20px;
+    position: relative;
+    top: 20px;
+    width: 500px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+
+    height: 66px;
+}
+.material img{
+    margin-left: 5px;
+    margin-top: -5px;
+    display: inline-block;
+}
+.materialName{
+    color: #3E3BFF;
+    font-family: Montserrat-bold,sans-serif;
+    font-size: 32px;
+    height: 32px;
+    text-decoration: none;
+    margin: 0px 0px 11px 10px;
+    padding-right: 300px;
+    display: inline-flex;
+    justify-content: center;
+}
+.title{
+    font-family: Montserrat-bold,sans-serif;
+    font-size: 32px;
+    margin-bottom: 17px;
+    margin-left: 60px;
+    margin-top: 30px;
+}
+.materials{
+    background-color: #d9d9d9;
+    border-radius: 8px;
+    width: 560px;
+    height: 245px;
+    display: block;
+    overflow: auto;
+    margin-left: 60px;
+}
+@font-face {
+    font-family: "Montserrat";
+    src: url('../../Styles/fonts/static/Montserrat-Bold.ttf') format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}

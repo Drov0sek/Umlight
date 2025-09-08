@@ -1,0 +1,95 @@
+
+.buttons {
+    font-family: "Montserrat", serif;
+    display: flex;
+    justify-content: center;
+    margin: 34px;
+    margin-top: 50px;
+}
+.register{
+    font-family: "Montserrat", serif;
+    margin-right: 15px;
+    padding: 14px 42px;
+    background-color: white;
+    border-color: rgba(0, 0, 0, 0);
+    border-radius: 12px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #222222;
+}
+.login{
+    font-family: "Montserrat", serif;
+    padding: 14px 42px;
+    border-radius: 12px;
+    background-color: #3E3BFF;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    border-color: #3E3BFF;
+    box-shadow: 0px 3px  rgba(0, 0, 0, 0.2);
+}
+.pros{
+    font-family: "Montserrat", serif;
+    display: flex;
+    justify-content: center;
+    margin-top: 54px;
+    color: #4A4A4A;
+    font-size: 12px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.prosTitle{
+    font-family: "Montserrat", serif;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+}
+.prosText{
+    font-family: "Montserrat", serif;
+    color: #4A4A4A;
+    text-align: left;
+    font-size: 22px;
+}
+.pros div{
+    font-family: "Montserrat", serif;
+    max-width: 300px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-weight: bold;
+}
+
+.center{
+    font-family: "Montserrat", serif;
+    border-left: 1px solid #848484;
+    border-right: 1px solid #848484;
+}
+.name div{
+    font-family: "Montserrat", serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.desc{
+    font-family: "Montserrat", serif;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    font-size: 34px;
+    font-weight: bold;
+    margin: 0px;
+}
+.siteName{
+    font-family: Montserrat, serif;
+    font-size: 120px;
+    font-weight: 700;
+    border-left: 3px solid #3E3BFF;
+    padding-left: 11px;
+    color: #3E3BFF;
+    margin-bottom: 0px;
+}
+@font-face {
+    font-family: "Montserrat";
+    src: url('../Styles/fonts/static/Montserrat-Bold.ttf') format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}

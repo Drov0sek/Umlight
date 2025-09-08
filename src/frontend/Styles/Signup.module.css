@@ -1,0 +1,202 @@
+.type{
+    font-family: Montserrat-bold, sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 0px;
+    color: black;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.buttons button{
+    margin: 8px;
+}
+.student{
+    background-color: #3E3BFF;
+    font-weight: 550;
+    color: white;
+    padding: 14px 22px;
+    border-radius: 20px;
+    border-color: #3E3BFF;
+    font-size: 22px;
+    font-family: Inter,sans-serif;
+}
+.teacher{
+    padding: 14px 22px;
+    background-color: #3E3BFF;
+    border-radius: 20px;
+    border-color: #3E3BFF;
+    color : white;
+    font-weight: 550;
+    font-family: Inter, sans-serif;
+    font-size: 22px;
+}
+.male{
+    background-color: #6F6DFF;
+    font-weight: 550;
+    color: white;
+    padding: 14px 22px;
+    border-radius: 20px;
+    border-color: #6F6DFF;
+    font-size: 22px;
+    font-family: Inter,sans-serif;
+}
+.female{
+    background-color: #FF3BA7;
+    font-weight: 550;
+    color: white;
+    padding: 14px 22px;
+    border-radius: 20px;
+    border-color: #FF3BA7;
+    font-size: 22px;
+    font-family: Inter,sans-serif;
+}
+.fields{
+    font-family: Montserrat-bold,sans-serif;
+    font-weight: bold;
+    margin-bottom: 16px;
+    margin-left: 20px;
+}
+.fields label{
+    display: block;
+    font-size: 18px;
+    color: black;
+    width: 272px;
+}
+
+.fields input{
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 12px;
+    font-family: Montserrat-bold,sans-serif;
+    border: 1px solid #D9D9D9;
+    width: 300px;
+}
+.fields select{
+    width: 308px;
+    height: 40px;
+    border-radius: 8px;
+    padding-left: 16px;
+    padding: 12px;
+    font-size: 12px;
+    font-family: Montserrat-bold,sans-serif;
+    border-color: #D9D9D9;
+}
+.okText{
+    display: none;
+}
+.errorText{
+    color: #FC1414;
+    font-size: 12px;
+    margin-left: 20px;
+    font-weight: bold;
+    height: 12px;
+    font-family: Montserrat-bold,sans-serif;
+    margin-top: 0px;
+    margin-bottom: 3px;
+}
+.wrong{
+    font-family: Montserrat-bold,sans-serif;
+    font-weight: bold;
+    width: 340px;
+    margin-left: 20px;
+    padding-bottom: 0px;
+
+}
+.wrong label{
+    display: block;
+    font-size: 18px;
+    color: black;
+    width: 300px;
+}
+
+.wrong input{
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 12px;
+    font-family: Montserrat-bold,sans-serif;
+    border: 2px solid #FC1414;
+    width: 300px;
+}
+.field{
+    font-family: Montserrat-bold,sans-serif;
+    font-weight: bold;
+    margin-bottom: 10px;
+    width: 272px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+.field label{
+    display: block;
+    font-size: 16px;
+    color: black;
+    width: 272px;
+}
+
+.field input{
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 12px;
+    font-family: Montserrat-bold,sans-serif;
+    border: 1px solid #D9D9D9;
+    width: 272px;
+}
+.field select{
+    width: 308px;
+    height: 40px;
+    border-radius: 8px;
+    padding-left: 16px;
+    padding: 12px;
+    font-size: 12px;
+    font-family: Montserrat-bold,sans-serif;
+    border-color: #D9D9D9;
+}
+.terms{
+    display: flex;
+    align-items: center;
+    width: 308px;
+    font-size: 16px;
+    font-style: italic;
+    font-weight : lighter;
+    color: black;
+    margin: 0px 0px 35px 20px;
+    font-family: Montserrat-bold,sans-serif;
+
+}
+.terms input{
+    accent-color: black;
+    border-radius: 4px;
+    color: #F5F5F5;
+    margin: 0px 12px 0px 0px;
+    width: 16px;
+    height: 24px;
+}
+.terms p{
+    margin: 0px;
+}
+.signup{
+    padding: 16px 50px;
+    background-color: #3E3BFF;
+    border-radius: 12px;
+    border-color: #3E3BFF;
+    color : white;
+    font-weight: 550;
+    font-family: Inter, sans-serif;
+    font-size: 24px;
+    text-align: center;
+    display: flex;
+    margin: 0 auto;
+}
+.link{
+    color: black;
+}
+@font-face {
+    font-family: "Montserrat";
+    src: url('../Styles/fonts/static/Montserrat-Bold.ttf') format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}
