@@ -4,6 +4,12 @@ import {PrismaClientKnownRequestError} from "@prisma/client/runtime/edge";
 
 const prisma = new PrismaClient();
 
+type ModuleType = {
+    numberOfModule : number,
+    name : string,
+    numberOfLessons : number
+}
+
 async function getModuleIdByName(moduleName: string, courseId: number) {
     const courseModuleIds = await prisma.courses_modules.findMany({
         where: { courseid: courseId },
@@ -25,9 +31,28 @@ async function getModuleIdByName(moduleName: string, courseId: number) {
 export class GetCourseParts {
     async getModuleLessons(courseId: number, moduleName: string) {
         const moduleId = await getModuleIdByName(moduleName, courseId);
-        return prisma.lesson.findMany({
-            where: { id: moduleId }
+
+        // достаём id всех уроков из таблицы modules_lessons
+        const lessonIds = await prisma.modules_lessons.findMany({
+            where: { moduleid: moduleId },
+            select: { lessonid: true }
+        }).then(r => r.map(e => e.lessonid));
+
+        console.log('Module:', moduleName, 'ModuleID:', moduleId, 'LessonIDs:', lessonIds);
+
+        if (lessonIds.length === 0) {
+            console.warn('⚠️ Нет уроков для модуля', moduleName);
+            return [];
+        }
+
+        // достаём уроки
+        const lessons = await prisma.lesson.findMany({
+            where: { id: { in: lessonIds } },
+            orderBy: { numberoflesson: 'asc' }
         });
+
+        console.log('Lessons found:', lessons.length);
+        return lessons;
     }
 
     async getCourseModules(courseId: number) {
@@ -35,13 +60,29 @@ export class GetCourseParts {
             where: { courseid: courseId },
             select: { moduleid: true }
         }).then(r => r.map(e => e.moduleid));
-
-        if (moduleIds.length === 0) return [];
-        const modules = await prisma.modules.findMany({
+        const dbModules = await prisma.modules.findMany({
             where: { id: { in: moduleIds } },
-            orderBy: { numofmodule: 'asc' }
+            orderBy: { numberofmodule: 'asc' }
         });
+        const modules : ModuleType[] = []
+        for (let i = 0;i < dbModules.length; i++){
+            const moduleLessons = await prisma.modules_lessons.count({
+                where : {
+                    moduleid : dbModules[i].id
+                }
+            })
+            const module : ModuleType = {name : dbModules[i].name, numberOfModule : dbModules[i].numberofmodule, numberOfLessons : moduleLessons}
+            modules.push(module)
+        }
         return modules
+    }
+    async getCourseIds(){
+        const courseIds = await prisma.courses.findMany({
+            select : {
+                id : true
+            }
+        }).then(e => e.map(r => r.id))
+        return courseIds
     }
 
     async getCourseData(courseId: number) {
@@ -89,8 +130,8 @@ export class GetCourseParts {
 
         if (moduleIds.length === 0) return 0;
 
-        return prisma.modules.count({
-            where: { id: { in: moduleIds } }
+        return prisma.modules_lessons.count({
+            where: { moduleid: { in: moduleIds } }
         });
     }
 
@@ -139,6 +180,48 @@ export class GetCourseParts {
                 }
             })
             return materials
+        } catch (e) {
+            console.log(e)
+            throw new Error()
+        }
+    }
+    async getPracticeLessons(lessonId : number){
+        try {
+            const practiceLesson = await prisma.lesson.findFirst({
+                where : {
+                    id : lessonId,
+                    type : 'Практика'
+                },
+                select : {
+                    id : true,
+                    name : true,
+                    type : true,
+                    description : true,
+                    time : true,
+                    numberoflesson : true
+                }
+            })
+            return practiceLesson
+        } catch (e) {
+            console.log(e)
+            throw new Error()
+        }
+    }
+    async getPraciceLessonTasks(lessonId : number){
+        try {
+            const lessonTasks = await prisma.lesson_tasks.findMany({
+                where : {
+                    lesson_id : lessonId
+                },
+                select : {
+                    id : true,
+                    text : true,
+                    image : true,
+                    answer : true,
+
+                }
+            })
+            return lessonTasks
         } catch (e) {
             console.log(e)
             throw new Error()

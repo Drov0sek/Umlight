@@ -1,0 +1,40 @@
+.descriptionText{
+    font-family: Montserrat-bold, sans-serif;
+    height: 250px;
+    background-color: #d9d9d9;
+    border-radius: 8px;
+    font-size: 32px;
+    margin-top: 0px;
+}
+.descriptionText p{
+    position: relative;
+    margin-left: 20px;
+    margin-top: 0;
+    padding-top: 12px;
+    overflow-wrap: break-word;
+    width: 900px;
+    height: 250px;
+}
+.description{
+    width: 900px;
+    height: 320px;
+    border-radius: 8px;
+    margin-left: 80px;
+}
+.title{
+    font-family: Montserrat-bold,sans-serif;
+    font-size: 32px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+/*.description p{*/
+/*    font-family: Montserrat-bold,sans-serif;*/
+/*    font-size: 32px;*/
+/*    margin-bottom: 5px;*/
+/*}*/
+@font-face {
+    font-family: "Montserrat";
+    src: url('../../Styles/fonts/static/Montserrat-Bold.ttf') format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}

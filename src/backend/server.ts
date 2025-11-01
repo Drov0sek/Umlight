@@ -11,16 +11,54 @@ import {GetUserService} from "./API/getUserService.ts";
 import {GetCourseParts} from "./Courses/getCourseParts.ts";
 import {PrismaClientKnownRequestError} from "@prisma/client/runtime/edge";
 import {CourseInteraction} from "./Courses/courseInteraction.ts";
+import {HasAlreadyJoinedError} from "./errors/HasAlreadyJoinedError.ts";
+import connectPgSimple from 'connect-pg-simple';
+import session from "express-session";
+import pg from "pg";
+
+declare module "express-session" {
+    interface SessionData {
+        userId: string;
+        role: string;
+    }
+}
 
 const app = express()
-app.use(cors())
+app.use(cors({
+    origin: "http://localhost:5173", // твой фронт
+    credentials: true
+}));
 app.use(express.json())
+const PgSession = connectPgSimple(session);
 
+const pgPool = new pg.Pool({
+    connectionString: process.env.DATABASE_URL,
+});
 const signin = new AuthService()
 const registerUser = new RegisterService()
 const getUser = new GetUserService()
 const getCourseParts = new GetCourseParts()
 const courseInteraction = new CourseInteraction()
+
+app.use(
+    session({
+        store: new PgSession({
+            pool: pgPool,
+            tableName: "user_sessions",
+            createTableIfMissing: true,
+        }),
+        secret: process.env.SESSION_SECRET!,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            httpOnly: true,  // защищает от XSS
+            secure: false,    // только HTTP
+            sameSite: "lax", // защита от CSRF - none
+            maxAge: 1000 * 60 * 60 * 24 * 1, // 7 дней
+        },
+    })
+);
+
 
 app.get('/',(req,res) => {
     console.log(req)
@@ -31,6 +69,8 @@ async function main(){
     app.post('/api/login',async (req,res) => {
         try {
             const result = await signin.authorize(req.body)
+            req.session.userId = result.id
+            req.session.role = result.role
             res.status(201).json(result)
         } catch (error){
             console.error("Error in /api/login:", error);
@@ -41,6 +81,18 @@ async function main(){
                 res.status(500).json(error)
             }
         }
+    })
+    app.get('/api/auth', async (req,res) => {
+        if (req.session.userId && req.session.role){
+            res.status(200).json({userId: req.session.userId, role: req.session.role})
+        } else {
+            res.status(401).json('session expired')
+        }
+    })
+    app.post('/api/logout', async (req, res) => {
+        req.session.destroy(() => {
+            res.status(200).json('logout completed')
+        })
     })
     app.post('/api/register/student',async (req,res) => {
         try {
@@ -98,6 +150,15 @@ async function main(){
             res.status(500).json(e)
         }
     })
+    app.get('/api/getCourseIds', async (req, res) => {
+        try{
+            const result = await getCourseParts.getCourseIds()
+            res.status(200).json(result)
+        } catch (e) {
+            console.log(e, req.body)
+            res.status(500).json(e)
+        }
+    })
     app.get('/api/getCourseData/:courseId', async (req,res) => {
         try {
             const result = await getCourseParts.getCourseData(Number(req.params.courseId))
@@ -145,8 +206,8 @@ async function main(){
             const result = await courseInteraction.joinCourse(req.body)
             res.status(200).json(result)
         } catch (e) {
-            if (e instanceof PrismaClientKnownRequestError){
-                res.status(404).json(e)
+            if (e instanceof HasAlreadyJoinedError){
+                res.status(404).json('Вы уже вступили в этот курс')
             }
             res.status(500).json(e)
         }
@@ -168,6 +229,30 @@ async function main(){
             res.status(200).json(result)
         } catch (e) {
             console.log(e)
+            res.status(500).json(e)
+        }
+    })
+    app.post('/api/isInCourse', async (req,res) => {
+        try {
+            const result = await courseInteraction.isInCourse(req.body)
+            res.status(200).json(result)
+        } catch (e) {
+            res.status(500).json(e)
+        }
+    })
+    app.get('/api/getPracticeLesson/:lessonId', async (req,res) => {
+        try {
+            const result = await getCourseParts.getPracticeLessons(Number(req.params.lessonId))
+            res.status(200).json(result)
+        } catch (e) {
+            res.status(500).json(e)
+        }
+    })
+    app.get('/api/getPracticeLessonTasks/:lessonId', async (req, res) => {
+        try {
+            const result = await getCourseParts.getPraciceLessonTasks(Number(req.params.lessonId))
+            res.status(200).json(result)
+        } catch (e) {
             res.status(500).json(e)
         }
     })

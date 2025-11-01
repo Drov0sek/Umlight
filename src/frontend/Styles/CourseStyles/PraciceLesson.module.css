@@ -1,0 +1,7 @@
+.bottom{
+    display: flex;
+    flex-direction: row;
+}
+.main{
+    overflow-y: auto;
+}

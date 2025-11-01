@@ -82,8 +82,9 @@ model lesson {
   video             String?
   time              Int?
   numberoflesson    Int?
+  lesson_tasks      lesson_tasks[]
   lessons_materials lessons_materials[]
-  modules           modules[]
+  modules_lessons   modules_lessons[]
 }
 
 model lessons_materials {
@@ -103,12 +104,11 @@ model materials {
 }
 
 model modules {
-  id              Int               @id @default(autoincrement())
-  lessonid        Int
-  numofmodule     Int
+  id              Int               @id
   name            String
+  numberofmodule  Int
   courses_modules courses_modules[]
-  lesson          lesson            @relation(fields: [lessonid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  modules_lessons modules_lessons[]
 }
 
 model tags {
@@ -124,4 +124,28 @@ model courses_students {
   students  students @relation(fields: [studentid], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@id([courseid, studentid])
+}
+
+model lesson_tasks {
+  id        Int     @id
+  text      String
+  image     String?
+  answer    String
+  lesson_id Int?
+  lesson    lesson? @relation(fields: [lesson_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_lesson")
+}
+
+model modules_lessons {
+  moduleid Int
+  lessonid Int
+  lesson   lesson  @relation(fields: [lessonid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  modules  modules @relation(fields: [moduleid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([lessonid, moduleid])
+}
+
+model auth_users {
+  id      Int    @id @default(autoincrement())
+  user_id Int
+  role    String
 }

@@ -26,7 +26,6 @@ const Login = () => {
         try {
             const resp = await fetch(`http://localhost:4200/api/getUser/${login}`)
             const data = await resp.json().then((data) => {return data})
-            console.log(data)
             return `${role}_${data.id}`
         } catch (e) {
             alert('Что-то пошло не так. Зайдите на сайт позже')
@@ -40,7 +39,8 @@ const Login = () => {
                 headers : {
                     'Content-Type': 'application/json',
                 },
-                body : JSON.stringify(form)
+                body : JSON.stringify(form),
+                credentials: 'include'
             })
             if (!resp.ok){
                 if (resp.status === 403){

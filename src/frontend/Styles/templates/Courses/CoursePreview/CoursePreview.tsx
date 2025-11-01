@@ -5,7 +5,7 @@ import preview from '../../../CourseStyles/CoursePreview.module.css'
 import {useParams} from "react-router";
 import {useSelector} from "react-redux";
 import type {RootState} from "../../../../store/store.ts";
-
+import {HasAlreadyJoinedError} from "../../../../../backend/errors/HasAlreadyJoinedError.ts";
 type CourseDataType = {
     courseId: number;
     courseName: string;
@@ -19,12 +19,13 @@ type CourseDataType = {
 };
 
 type ModuleType = {
-    id : number,
-    lessonid : number,
-    numofmodule : number,
-    name : string
+    numberOfModule : number,
+    name : string,
+    numberOfLessons : number
 }
+
 const CoursePreview = () => {
+    const [isLoading,setIsLoading] = useState(true)
     const { courseId } = useParams<{ courseId: string }>();
     const id = Number(courseId);
     const [lessonsAmount,setLessonsAmount] = useState(0)
@@ -37,7 +38,7 @@ const CoursePreview = () => {
     const [courseTags,setCourseTags] = useState([])
     const login = useSelector((state : RootState) => state.authController.userLogin)
     const [hasJoined,setHasjoined] = useState(false)
-    const [modules,setModules] = useState<ModuleType[]>()
+    const [modules,setModules] = useState<ModuleType[]>([])
 
     useEffect(() => {
         async function getCourseData() {
@@ -113,6 +114,67 @@ const CoursePreview = () => {
         getCourseData()
         getCourseModules()
     }, []);
+    useEffect(() => {
+        async function getModules(){
+            try {
+                const resp = await fetch(`http://localhost:4200/api/getModules/${id}`)
+                if (resp.ok){
+                    const modulesData : ModuleType[] = await resp.json()
+                    setModules(modulesData)
+                }
+                else {
+                    throw new Error()
+                }
+            } catch (e) {
+                console.log(e)
+                alert('Произошла ошибка при загрузке модулей. Зайдите на сайт позже')
+            }
+        }
+        getModules()
+    }, [id]);
+    useEffect(() => {
+        async function isInCourse(){
+            try{
+                const resp = await fetch('http://localhost:4200/api/isInCourse', {
+                    method : 'POST',
+                    headers : {
+                        'Content-Type': 'application/json',
+                    },
+                    body : JSON.stringify({
+                        userLogin : login,
+                        courseId : id
+                    })
+                })
+                if (resp.ok){
+                    const isInCourseData : boolean = await resp.json()
+                    setHasjoined(isInCourseData)
+                    setIsLoading(false)
+                } else {
+                    console.error('Error checking course membership:', resp.status)
+                }
+            } catch (e) {
+                alert('На сервере произошла ошибка. Попробуйте зайти на сайт позже')
+                console.log(e)
+            }
+        }
+        console.log('erfef')
+        isInCourse()
+    },[login,id])
+    useEffect(() => {
+        if (!isLoading) {
+            localStorage.setItem(`course_${id}_joined`, JSON.stringify(hasJoined));
+        }
+    }, [hasJoined, isLoading, id]);
+    useEffect(() => {
+        const savedHasJoined = localStorage.getItem(`course_${id}_joined`);
+        if (savedHasJoined) {
+            setHasjoined(JSON.parse(savedHasJoined));
+        }
+    }, [id]);
+    useEffect(() => {
+        console.log('modules: ', modules)
+    }, [modules]);
+
     const getCourseTags = useMemo(() => {
         return courseTags.map((tag, i) => <p key={i}>{tag}</p>);
     }, [courseTags]);
@@ -132,20 +194,21 @@ const CoursePreview = () => {
                 setHasjoined(true)
             }
             else {
+                if (resp.status === 404){
+                    throw new HasAlreadyJoinedError('Вы уже вступили в этот курс')
+                }
                 throw new Error(await resp.json().then(e => e.message))
             }
         } catch (e) {
-            alert('Что-то пошло не так при вступлении в курс. Попробуйте ещё раз позже')
-            console.log(e)
+            if (e instanceof HasAlreadyJoinedError){
+                alert('Вы уже вступили в этот курс')
+            }
+            else {
+                alert('Что-то пошло не так при вступлении в курс. Попробуйте ещё раз позже')
+            }
         }
     }
-    function changeButtonWhenJoined() {
-        if (hasJoined){
-            return 'Вы уже вступили'
-        } else {
-            return 'Вступить'
-        }
-    }
+
     return (
         <main className={preview.main}>
             <section  className={preview.preview}>
@@ -178,14 +241,14 @@ const CoursePreview = () => {
                         </section>
                     </section>
                     <button className={preview.signUp} onClick={() => {
-                        console.log(modules)
+                        console.log(modules, hasJoined)
                         joinCourse(login)
-                    }}>{changeButtonWhenJoined()}</button>
+                    }}>{hasJoined ? 'Вы уже вступили в этот курс' : 'Вступить'}</button>
                 </section>
             </section>
             <CourseDescription courseDesc={courseDescription}/>
             <hr/>
-            <ModulesList modules={[{numberOfModule: 1, name: 'Введение', numberOfLessons: 1}]}
+            <ModulesList modules={modules}
                          courseId={id}/>
         </main>
     );

@@ -11,6 +11,9 @@ import {Provider} from "react-redux";
 import ProtectedRoutes from "./frontend/ProtectedRoutes.tsx";
 import CoursePreview from "./frontend/Styles/templates/Courses/CoursePreview/CoursePreview.tsx";
 import TheoryLesson from "./frontend/Styles/templates/Courses/TheoryLessons/TheoryLesson.tsx";
+import PracticeLesson from "./frontend/Styles/templates/Courses/PracticeLessons/PracticeLesson.tsx";
+import Layout from "./frontend/MainPage/Layout.tsx";
+import Profile from "./frontend/Profile/Profile.tsx";
 
 const router = createBrowserRouter([
     {path : '/',element : <App/>},
@@ -20,16 +23,26 @@ const router = createBrowserRouter([
     {
         element : <ProtectedRoutes/>,
         children : [
-            {path : '/main/:id',element : <Main/>},
-            
+            {
+                element : <Layout/>,
+                children : [
+                    {path : '/main/:id',element : <Main/>},
+                    {
+                        path : '/course/:courseId', element : <CoursePreview/>,
+                    },
+                    {
+                        path: '/course/:courseId/theory/:taskId', element: <TheoryLesson/>
+                    },
+                    {
+                        path: '/course/:courseId/practice/:practiceId', element: <PracticeLesson/>
+                    },
+                    {
+                        path : '/profile/:userId', element: <Profile/>
+                    }
+                ]
+            }
         ]
-    },
-    {
-        path : '/course/:courseId', element : <CoursePreview/>,
-        children : [
-            {path: 'tasks/theory/:taskId',element : <TheoryLesson/>}
-        ]
-    },
+    }
 
 ])
 

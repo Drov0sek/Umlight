@@ -32,22 +32,22 @@ const ModulesList = ({modules,courseId} : PropsType) => {
     const [error, setError] = useState<string | null>(null);
     const [isOpened,setIsOpened] = useState(true)
     const nav = useNavigate()
+
     useEffect(() => {
         const fetchLessons = async () => {
             try {
                 const lessonsData: ModuleLessons = {};
-
-                // Используем Promise.all для параллельной загрузки
                 await Promise.all(modules.map(async (module) => {
                     try {
                         const resp = await fetch(`http://localhost:4200/api/getLessons/${module.name}/${courseId}`);
 
                         if (!resp.ok) {
+                            alert('trgfd')
                             throw new Error(`Ошибка загрузки уроков для модуля ${module.name}`);
                         }
 
                         const lessons: LessonType[] = await resp.json();
-                        console.log(lessons.map(e => e.numberoflesson),lessons)
+                        console.log('lessons:', lessons.map(e => e.numberoflesson),lessons)
                         lessonsData[module.name] = lessons;
                     } catch (e) {
                         console.error(e);
@@ -57,6 +57,7 @@ const ModulesList = ({modules,courseId} : PropsType) => {
                 }));
 
                 setLessonsByModule(lessonsData);
+
             } catch (e) {
                 console.error(e);
                 setError("Общая ошибка загрузки данных");
@@ -66,7 +67,10 @@ const ModulesList = ({modules,courseId} : PropsType) => {
         };
 
         fetchLessons();
-    }, []);
+    }, [modules]);
+    useEffect(() => {
+        console.log('moduleLessons: ',lessonsByModule)
+    }, [lessonsByModule]);
 
     if (loading) return <div>Загрузка уроков...</div>;
     if (error) return <div>Ошибка: {error}</div>;
@@ -84,7 +88,11 @@ const ModulesList = ({modules,courseId} : PropsType) => {
                     </div>
                     <div className={moduleList.lessons}>
                     {lessonsByModule[r.name]?.map(e => <div onClick={() => {
-                        nav('')
+                        if (e.type === 'Теория'){
+                            nav(`/course/${courseId}/theory/${e.id}`)
+                        } else {
+                            nav(`/course/${courseId}/practice/${e.id}`)
+                        }
                     }} className={(isOpened) ? moduleList.lesson : moduleList.lessonClosed} key={e.id}>
                             <p>{e.numberoflesson}. {e.name}</p>
                             <p onClick={() => console.log(lessonsByModule)}>{e.time} минут</p>

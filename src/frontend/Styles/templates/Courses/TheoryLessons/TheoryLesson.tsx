@@ -4,10 +4,6 @@ import theoryLesson from '../../../CourseStyles/TheoryLesson.module.css'
 import {useEffect, useState} from "react";
 import {useParams} from "react-router";
 
-type PropsType = {
-    lessonId : number
-}
-
 type LessonType = {
     id : number,
     type : string,
@@ -56,6 +52,7 @@ const TheoryLesson = () => {
                 if (resp.ok){
                     const lessonsMaterialData : MaterialType[] = await resp.json()
                     setMaterials(lessonsMaterialData)
+                    console.log(lessonsMaterialData)
                 }
             } catch (e) {
                 console.log(e)
@@ -66,7 +63,7 @@ const TheoryLesson = () => {
         getLessonsMaterials()
     }, []);
     return (
-        <div>
+        <div className={theoryLesson.main}>
             <section className={theoryLesson.lesson}>
                 <section className='video'>
                     <video src={lesson.video} controls={true} preload={'metadata'} width={854} height={480}/>

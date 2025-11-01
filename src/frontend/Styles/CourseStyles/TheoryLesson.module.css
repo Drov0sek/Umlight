@@ -2,6 +2,11 @@
     display: flex;
     flex-direction: row;
     margin-bottom: 34px;
+    justify-content: space-between;
+}
+.main{
+    overflow-y: auto;
+    height: 120vh;
 }
 .lesson{
     display: flex;
