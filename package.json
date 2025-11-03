@@ -7,15 +7,11 @@
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
     "dev:frontend": "vite",
     "dev:backend": "nodemon --exec tsx src/backend/server.ts",
-    "build:backend": "tsc --project tsconfig.backend.json",
     "build:frontend": "vite build",
+    "build:backend": "tsc -p tsconfig.backend.json",
     "build": "npm run build:frontend && npm run build:backend",
-    "build:full": "npm run build && npm run prisma:generate",
-    "start": "node dist/backend/server.js",
-    "prisma:generate": "prisma generate",
-    "prisma:deploy": "prisma migrate deploy",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "start": "node dist/server.js",
+    "postinstall": "npx prisma generate && npx prisma migrate deploy"
   },
   "dependencies": {
     "@prisma/client": "^6.10.1",

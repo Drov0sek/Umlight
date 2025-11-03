@@ -13,6 +13,8 @@ import {HasAlreadyJoinedError} from "./errors/HasAlreadyJoinedError.js";
 import connectPgSimple from 'connect-pg-simple';
 import session from "express-session";
 import pg from "pg";
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 declare module "express-session" {
     interface SessionData {
@@ -37,6 +39,8 @@ const registerUser = new RegisterService()
 const getUser = new GetUserService()
 const getCourseParts = new GetCourseParts()
 const courseInteraction = new CourseInteraction()
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(
     session({
@@ -62,6 +66,8 @@ app.get('/',(req,res) => {
     console.log(req)
     res.send('Server is running');
 });
+
+app.use(express.static(path.join(__dirname, 'dist')));
 
 async function main(){
     app.post('/api/login',async (req,res) => {
@@ -246,6 +252,15 @@ async function main(){
             res.status(500).json(e)
         }
     })
+    app.use((req, res, next) => {
+        // Если путь начинается с /api, пропускаем
+        if (req.path.startsWith('/api')) return next();
+
+        // Если путь не совпадает с файлом в dist, отдаём index.html
+        res.sendFile('index.html', { root: path.join(__dirname, 'dist') }, (err) => {
+            if (err) next(err);
+        });
+    });
 }
 
 main().catch(console.error)

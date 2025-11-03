@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   root: ".", // корень проекта, где лежит index.html
   build: {
-    outDir: path.resolve(__dirname, "dist/frontend"), // куда класть сборку
+    outDir: path.resolve(__dirname, "dist"), // куда класть сборку
     emptyOutDir: true,
   },
   resolve: {
@@ -17,7 +17,7 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      "/api": "http://localhost:5173",
+      "/api": "http://localhost:4200",
     },
   },
 });
