@@ -8,7 +8,6 @@ import {PasswordTooWeakError} from "./errors/PasswordTooWeakError.js";
 import {RegisterService} from "./register/register.service.js";
 import {GetUserService} from "./API/getUserService.js";
 import {GetCourseParts} from "./Courses/getCourseParts.js";
-import {PrismaClientKnownRequestError} from "@prisma/client/runtime/edge";
 import {CourseInteraction} from "./Courses/courseInteraction.js";
 import {HasAlreadyJoinedError} from "./errors/HasAlreadyJoinedError.js";
 import connectPgSimple from 'connect-pg-simple';
@@ -165,12 +164,7 @@ async function main(){
             res.status(200).json(result)
         }
         catch (e){
-            if(e instanceof PrismaClientKnownRequestError){
-                res.status(404).json(e)
-            }
-            else {
-                res.status(500).json(e)
-            }
+            res.status(500).json(e)
         }
     })
     app.get('/api/getCourseStudentsAmount/:courseId',async (req,res) => {
@@ -216,9 +210,6 @@ async function main(){
            const result = await getCourseParts.getLesson(Number(req.params.lessonId))
            res.status(200).json(result)
        } catch (e) {
-           if (e instanceof PrismaClientKnownRequestError){
-               res.status(404).json(e)
-           }
            res.status(500).json(e)
        }
     })

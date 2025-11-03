@@ -1,6 +1,5 @@
 import { PrismaClient } from '../../../generated/prisma/client';
 import { NoModuleFoundError } from '../errors/NoModuleFoundError.js';
-import {PrismaClientKnownRequestError} from "@prisma/client/runtime/edge";
 
 const prisma = new PrismaClient();
 
@@ -152,16 +151,14 @@ export class GetCourseParts {
     }
     async getLesson(lessonId : number){
         try {
-            const lesson = await prisma.lesson.findFirstOrThrow({
+            const lesson = await prisma.lesson.findFirst({
                 where : {
                     id : lessonId
                 }
             })
             return lesson
         } catch (e) {
-            if (e instanceof PrismaClientKnownRequestError){
-                throw new PrismaClientKnownRequestError('',{code : 'P2025', meta :{ modelName: 'students', cause: 'No record was found for a query.' },clientVersion : '6.10.1'})
-            }
+            console.log(e)
             throw new Error()
         }
     }

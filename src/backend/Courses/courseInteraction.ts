@@ -1,5 +1,4 @@
 import { PrismaClient } from '../../../generated/prisma/client';
-import {PrismaClientKnownRequestError} from "@prisma/client/runtime/edge";
 import {HasAlreadyJoinedError} from "../errors/HasAlreadyJoinedError.js";
 
 const prisma = new PrismaClient();
@@ -48,9 +47,6 @@ export class CourseInteraction{
             if (e instanceof HasAlreadyJoinedError){
                 throw new HasAlreadyJoinedError('Вы уже вступили в этот курс')
             }
-            if (e instanceof PrismaClientKnownRequestError){
-                throw new PrismaClientKnownRequestError('Произошла ошибка', {code : 'P2025', clientVersion : '6.10.1'})
-            }
             else {
                 throw new Error()
             }
@@ -75,12 +71,8 @@ export class CourseInteraction{
             return hasJoined
         }
         catch (e) {
-            if (e instanceof PrismaClientKnownRequestError){
-                throw new PrismaClientKnownRequestError('Произошла ошибка', {code : 'P2025', clientVersion : '6.10.1'})
-            }
-            else {
-                throw new Error()
-            }
+            console.log(e)
+            throw new Error()
         }
     }
 }
