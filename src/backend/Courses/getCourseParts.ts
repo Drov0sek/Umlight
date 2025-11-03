@@ -1,5 +1,5 @@
 import { PrismaClient } from '../../../generated/prisma/client';
-import { NoModuleFoundError } from '../errors/NoModuleFoundError.ts';
+import { NoModuleFoundError } from '../errors/NoModuleFoundError.js';
 import {PrismaClientKnownRequestError} from "@prisma/client/runtime/edge";
 
 const prisma = new PrismaClient();

@@ -1,4 +1,3 @@
-
 import express from 'express'
 import cors from 'cors'
 import {IncorrectDataError} from "./errors/IncorrectDataError.js";
@@ -7,11 +6,11 @@ import * as http from "node:http";
 import {NotUniqueLoginError} from "./errors/NotUniqueLoginError.js";
 import {PasswordTooWeakError} from "./errors/PasswordTooWeakError.js";
 import {RegisterService} from "./register/register.service.js";
-import {GetUserService} from "./API/getUserService.ts";
-import {GetCourseParts} from "./Courses/getCourseParts.ts";
+import {GetUserService} from "./API/getUserService.js";
+import {GetCourseParts} from "./Courses/getCourseParts.js";
 import {PrismaClientKnownRequestError} from "@prisma/client/runtime/edge";
-import {CourseInteraction} from "./Courses/courseInteraction.ts";
-import {HasAlreadyJoinedError} from "./errors/HasAlreadyJoinedError.ts";
+import {CourseInteraction} from "./Courses/courseInteraction.js";
+import {HasAlreadyJoinedError} from "./errors/HasAlreadyJoinedError.js";
 import connectPgSimple from 'connect-pg-simple';
 import session from "express-session";
 import pg from "pg";
@@ -259,7 +258,10 @@ async function main(){
 }
 
 main().catch(console.error)
-const PORT = process.env.PORT || 4200;
+
+
+
+const PORT = process.env.PORT;
 const server = http.createServer(app);
 
 server.listen(PORT, () => {

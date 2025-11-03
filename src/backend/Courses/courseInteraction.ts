@@ -1,6 +1,6 @@
 import { PrismaClient } from '../../../generated/prisma/client';
 import {PrismaClientKnownRequestError} from "@prisma/client/runtime/edge";
-import {HasAlreadyJoinedError} from "../errors/HasAlreadyJoinedError.ts";
+import {HasAlreadyJoinedError} from "../errors/HasAlreadyJoinedError.js";
 
 const prisma = new PrismaClient();
 

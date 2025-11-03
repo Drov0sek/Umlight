@@ -1,7 +1,23 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-})
+  root: ".", // корень проекта, где лежит index.html
+  build: {
+    outDir: path.resolve(__dirname, "dist/frontend"), // куда класть сборку
+    emptyOutDir: true,
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "src/frontend"), // чтобы можно было писать "@/App.tsx" и т.п.
+    },
+  },
+  server: {
+    port: 5173,
+    proxy: {
+      "/api": "http://localhost:5173",
+    },
+  },
+});
