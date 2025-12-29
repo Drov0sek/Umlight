@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\" \"npm run loadContent\" ",
     "dev:frontend": "vite",
     "dev:backend": "nodemon --exec tsx src/backend/server.ts",
     "build:frontend": "vite build",
     "build:backend": "tsc -p tsconfig.backend.json",
     "build": "npm run build:frontend && npm run build:backend",
+    "loadContent" : "cd C:\\projects\\umlight_project4\\nginx-1.28.0 && start nginx",
     "start": "node dist/server.js",
     "postinstall": "npx prisma generate && npx prisma migrate deploy"
   },

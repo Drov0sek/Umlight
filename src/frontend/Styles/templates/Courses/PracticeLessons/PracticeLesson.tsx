@@ -69,10 +69,6 @@ const PracticeLesson = () => {
             }
         }
         setRightTasks(correctNums);
-
-        // логируем для отладки
-        console.log('completedTasks (sorted):', sortedCompleted);
-        console.log('rightTasks (computed):', correctNums);
     }
 
 

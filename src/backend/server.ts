@@ -15,6 +15,8 @@ import session from "express-session";
 import pg from "pg";
 import path from 'path';
 import { fileURLToPath } from 'url';
+import {GetUserInfo} from './getUserInfo/getUserInfo.js'
+import {GetTasksInfo} from "./TaskDB/getTasksInfo.js";
 
 declare module "express-session" {
     interface SessionData {
@@ -39,6 +41,8 @@ const registerUser = new RegisterService()
 const getUser = new GetUserService()
 const getCourseParts = new GetCourseParts()
 const courseInteraction = new CourseInteraction()
+const getUserInfo = new GetUserInfo()
+const getTasksInfo = new GetTasksInfo()
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -134,6 +138,53 @@ async function main(){
         } catch (e) {
             console.log('ghjf',e)
             res.status(501).json(e)
+        }
+    })
+    app.get('/api/getStudentInfo/:id', async (req, res) => {
+        try{
+            const result = await getUserInfo.getStudentInfo(Number(req.params.id))
+            res.status(200).json(result)
+        }catch (e) {
+            console.log(e)
+            res.status(500).json('Error')
+        }
+    })
+    app.get('/api/getTeacherInfo/:id', async (req, res) => {
+        try{
+            const result = await getUserInfo.getTeacherInfo(Number(req.params.id))
+            res.status(200).json(result)
+        }catch (e) {
+            console.log(e)
+            res.status(500).json('Error')
+        }
+    })
+    app.put('/api/setNewInfo/:id/:role', async (req, res) => {
+        const id = Number(req.params.id)
+        const role = req.params.role
+        const data = req.body
+        try{
+            const result = await getUserInfo.changeUserInfo(role, id, data)
+            res.status(200).json(result)
+        } catch (e) {
+            res.status(500).json(e)
+        }
+    })
+    app.get(`/api/getUserSubjects/:id/:role`, async (req, res) => {
+        try {
+            const result = await getUserInfo.getUserSubjects(Number(req.params.id), req.params.role)
+            res.status(200).json(result)
+        } catch (e) {
+            console.log(e)
+            res.status(500).json(e)
+        }
+    })
+    app.get('/api/getUserCourses/:id/:role', async (req, res) => {
+        try {
+            const result = await getUserInfo.getUserCourses(Number(req.params.id), req.params.role)
+            res.status(200).json(result)
+        } catch (e) {
+            console.log(e)
+            res.status(500).json(e)
         }
     })
     app.get('/api/getLessons/:moduleName/:courseId',async (req,res) => {
@@ -247,6 +298,22 @@ async function main(){
     app.get('/api/getPracticeLessonTasks/:lessonId', async (req, res) => {
         try {
             const result = await getCourseParts.getPraciceLessonTasks(Number(req.params.lessonId))
+            res.status(200).json(result)
+        } catch (e) {
+            res.status(500).json(e)
+        }
+    })
+    app.get('/api/getTasks', async (_req, res) => {
+        try {
+            const result = await getTasksInfo.getTasks()
+            res.status(200).json(result)
+        } catch (e) {
+            res.status(500).json(e)
+        }
+    })
+    app.get('/api/getTaskById/:id', async (req, res) => {
+        try{
+            const result = await getTasksInfo.getTaskById(Number(req.params.id))
             res.status(200).json(result)
         } catch (e) {
             res.status(500).json(e)

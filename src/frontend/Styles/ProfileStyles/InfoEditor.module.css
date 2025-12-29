@@ -1,0 +1,36 @@
+.inputEditor{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+}
+.inputBlock{
+    margin-top: 5px;
+}
+.inputTitle{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 16px;
+    color: black;
+    margin: 0;
+}
+.inputText{
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    height: 40px;
+    width: 22vw;
+    font-family: Montserrat-Regular, sans-serif;
+    padding-left: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-top: 12px;
+}
+.button{
+    background-color: #3E3BFF;
+    border: 0;
+    font-size: 16px;
+    font-family: Montserrat-bold, sans-serif;
+    color: white;
+    padding: 15px 5vw;
+    border-radius: 8px;
+}

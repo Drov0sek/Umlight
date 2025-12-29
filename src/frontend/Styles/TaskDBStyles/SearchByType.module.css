@@ -1,0 +1,25 @@
+.title{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+.searchButton{
+    height: 55px;
+    width: 11vw;
+    border-radius: 8px;
+    margin-top: 12px;
+    margin-left: 23px;
+    border: 0;
+    background-color: #6B63FF;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-family: Montserrat-bold, sans-serif;
+}
+.searchBlock{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.search{
+    margin-right: 7vw;
+}

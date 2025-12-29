@@ -28,10 +28,16 @@ export const Modal = ({
         }
     }, [isOpen]);
 
+    const handleOverlayClick = (e: React.MouseEvent) => {
+        if (e.target === e.currentTarget) {
+            onClose();
+        }
+    };
+
     if (!isOpen) return null;
 
     return createPortal(
-        <div className={styles.overlay}>
+        <div className={styles.overlay} onClick={handleOverlayClick}>
             <div ref={modalRef} className={styles.modal}>
                 {/* Заголовок и кнопка закрытия */}
                 <div className={styles.header}>

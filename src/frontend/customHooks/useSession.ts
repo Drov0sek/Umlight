@@ -16,7 +16,6 @@ export function useSession(){
                 })
                 if (resp.ok){
                     const data : UserType = await resp.json()
-                    console.log('session is fresh')
                     setUser(data)
                 }
             } catch (e) {

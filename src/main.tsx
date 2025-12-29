@@ -14,6 +14,10 @@ import TheoryLesson from "./frontend/Styles/templates/Courses/TheoryLessons/Theo
 import PracticeLesson from "./frontend/Styles/templates/Courses/PracticeLessons/PracticeLesson.tsx";
 import Layout from "./frontend/MainPage/Layout.tsx";
 import Profile from "./frontend/Profile/Profile.tsx";
+import InfoEditor from "./frontend/Profile/InfoEditor.tsx";
+import TaskDB from "./frontend/taskDB/TaskDB.tsx";
+import UserCourses from "./frontend/UserCourses/UserCourses.tsx";
+import Task from "./frontend/taskDB/Task.tsx";
 
 const router = createBrowserRouter([
     {path : '/',element : <App/>},
@@ -26,7 +30,9 @@ const router = createBrowserRouter([
             {
                 element : <Layout/>,
                 children : [
-                    {path : '/main/:id',element : <Main/>},
+                    {
+                        path : '/main/:id',element : <Main/>
+                    },
                     {
                         path : '/course/:courseId', element : <CoursePreview/>,
                     },
@@ -37,7 +43,20 @@ const router = createBrowserRouter([
                         path: '/course/:courseId/practice/:practiceId', element: <PracticeLesson/>
                     },
                     {
-                        path : '/profile/:userId', element: <Profile/>
+                        path : '/profile/:userId', element: <Profile/>, children: [
+                            {
+                                path : '/profile/:userId/edit', element: <InfoEditor/>
+                            }
+                        ]
+                    },
+                    {
+                        path : '/taskDB', element : <TaskDB/>
+                    },
+                    {
+                        path : '/userCourses/:id', element : <UserCourses/>
+                    },
+                    {
+                        path : '/taskDB/task/:id', element : <Task/>
                     }
                 ]
             }

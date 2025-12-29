@@ -1,0 +1,19 @@
+.preview{
+
+}
+.idAndType{
+    display: flex;
+    flex-direction: row;
+}
+.idAndType p{
+    font-family: Montserrat-medium, sans-serif;
+    font-size: 24px;
+    margin-bottom: 25px;
+    margin-top: 18px;
+}
+.taskText{
+    font-family: Montserrat-medium, sans-serif;
+    font-size: 32px;
+    width: 62vw;
+    margin-top: 0;
+}

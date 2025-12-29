@@ -27,8 +27,6 @@ export class AuthService {
             if (student && compareSync(loginForm.password, student.password)) {
                 return { id: student.id.toString(), role: "student" };
             }
-
-            // Проверяем преподавателя
             const teacher = await prisma.teachers.findFirst({
                 where: {
                     login: loginForm.login

@@ -18,13 +18,19 @@ const Header = () => {
                     setTabActive('Библиотека')
                     nav(`/main/${user.role + '_' + user.userId}`)
                 }}/>
-                <HeaderTab title = 'Мои курсы' isActive={(tabActive === 'Мои курсы')} onClick={() => setTabActive('Мои курсы')}/>
+                <HeaderTab title = 'Мои курсы' isActive={(tabActive === 'Мои курсы')} onClick={() => {
+                    setTabActive('Мои курсы')
+                    nav(`/userCourses/${user.role + '_' + user.userId}`)
+                }}/>
                 <HeaderTab title = 'Поиск преподавателей' isActive={(tabActive === 'Поиск преподавателей')} onClick={() => setTabActive('Поиск преподавателей')}/>
                 <HeaderTab title = 'Профиль' isActive={(tabActive === 'Профиль')} onClick={() => {
                     setTabActive('Профиль')
                     nav(`/profile/${user.role + '_' + user.userId}`)
                 }}/>
-                <HeaderTab title = 'База заданий' isActive={(tabActive === 'База заданий')} onClick={() => setTabActive('База заданий')}/>
+                <HeaderTab title = 'База заданий' isActive={(tabActive === 'База заданий')} onClick={() => {
+                    setTabActive('База заданий')
+                    nav('/taskDB')
+                }}/>
                 <HeaderTab title = 'Связь с нами' isActive={(tabActive === 'Связь с нами')} onClick={() => setTabActive('Связь с нами')}/>
                 <img src={'http://localhost:8080/siteImages/Settings.svg'} alt={"Настройки"}/>
             </section>

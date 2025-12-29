@@ -1,0 +1,29 @@
+.title{
+    font-size: 32px;
+    font-family: Montserrat-bold, sans-serif;
+    margin-left: 1.5vw;
+    margin-bottom: 18px;
+}
+.idInput{
+    background: url('http://localhost:8080/siteImages/Search.svg') no-repeat 17vw, 16px;
+    width : 17vw;
+    height: 5vh;
+    border-radius: 15px;
+    border: 2px solid #d9d9d9;
+    font-family: Montserrat-Regular, sans-serif;
+    font-size: 20px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-left: 1.5vw;
+}
+.findIdButton{
+    width: 11vw;
+    height: 5vh;
+    border-radius: 8px;
+    border: 0;
+    background-color: #6B63FF;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-family: Montserrat-bold, sans-serif;
+    margin-left: 8px;
+}

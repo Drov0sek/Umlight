@@ -9,17 +9,20 @@ datasource db {
 }
 
 model students {
-  id               Int                @id @default(autoincrement())
-  name             String
-  login            String
-  password         String
-  surname          String?
-  gender           String?
-  nickname         String?
-  email            String?
-  age              Int?
-  courses_students courses_students[]
-  teacher_student  teacher_student[]
+  id                Int                 @id @default(autoincrement())
+  name              String
+  login             String
+  password          String
+  surname           String?
+  gender            String?
+  nickname          String?
+  email             String?
+  age               Int?
+  image             String?
+  description       String?
+  courses_students  courses_students[]
+  students_subjects students_subjects[]
+  teacher_student   teacher_student[]
 }
 
 model teacher_student {
@@ -32,15 +35,19 @@ model teacher_student {
 }
 
 model teachers {
-  id              Int               @id @default(autoincrement())
-  name            String
-  surname         String
-  email           String
-  login           String
-  password        String
-  gender          String?
-  courses         courses[]
-  teacher_student teacher_student[]
+  id                Int                 @id @default(autoincrement())
+  name              String
+  surname           String
+  email             String
+  login             String
+  password          String
+  gender            String?
+  description       String?
+  image             String?
+  age               Int?
+  courses           courses[]
+  teacher_student   teacher_student[]
+  teachers_subjects teachers_subjects[]
 }
 
 model courses {
@@ -148,4 +155,48 @@ model auth_users {
   id      Int    @id @default(autoincrement())
   user_id Int
   role    String
+}
+
+model students_subjects {
+  id         Int      @id @default(autoincrement())
+  student_id Int
+  subject_id Int
+  students   students @relation(fields: [student_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  subjects   subjects @relation(fields: [subject_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model teachers_subjects {
+  id         Int      @id @default(autoincrement())
+  teacher_id Int
+  subject_id Int
+  subjects   subjects @relation(fields: [subject_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  teachers   teachers @relation(fields: [teacher_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model subjects {
+  id                Int                 @id @default(autoincrement())
+  subject           String
+  students_subjects students_subjects[]
+  teachers_subjects teachers_subjects[]
+  public_tasks      public_tasks[]
+}
+
+model user_sessions {
+  sid    String   @id(map: "session_pkey") @db.VarChar
+  sess   Json     @db.Json
+  expire DateTime @db.Timestamp(6)
+
+  @@index([expire], map: "IDX_session_expire")
+}
+
+model public_tasks {
+  id         Int      @id @default(autoincrement())
+  text       String
+  image      String?
+  answer     String?
+  solution   String?
+  type       String?
+  time       String?
+  subject_id Int
+  subjects   subjects @relation(fields: [subject_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

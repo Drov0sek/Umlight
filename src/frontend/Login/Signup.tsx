@@ -262,7 +262,7 @@ const Signup = () => {
                                    gender : gender
                                }).then( r => {
                                    console.log(r)
-                                   nav('/main:id')
+                                   nav('/')
                                })
                            }}>Зарегистрироваться</button>
                        </div>}/>

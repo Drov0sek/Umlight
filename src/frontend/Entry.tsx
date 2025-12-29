@@ -1,13 +1,16 @@
 
 import entry from './Styles/Entry.module.css'
 import {Link} from "react-router";
+import {useSession} from "./customHooks/useSession.ts";
 
 const Entry = () => {
+    const user = useSession()
+
     return (
         <div className={entry.site}>
             <header className={entry.name}>
                 <div>
-                    <img src='https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTiIYEVBeDnTWCRgMuGkoSrsGddu-4tDkNL_jxjwYhaCDkOWmgaxvY2yF55HqpLEJajNv-a-zwyN83Q5HNC0TEC717EY4EMeGAFcpmrs1sGjyoNATVzEX9r' alt='тут будет лого'/>
+                    <img className={entry.img} src='http://localhost:8080/siteImages/umlightLogo2.svg' alt='тут будет лого'/>
                     <p className={entry.siteName}>Умлайт</p>
                 </div>
                 <p className={entry.desc}>образовательная платформа</p>
@@ -38,7 +41,7 @@ const Entry = () => {
                         Регистрация
                     </button>
                 </Link>
-                <Link to={'/login'}>
+                <Link to={user.userId === 0 ? '/login' : `/main/${user.role}_${user.userId}`}>
                     <button className={entry.login}>
                         Вход
                     </button>

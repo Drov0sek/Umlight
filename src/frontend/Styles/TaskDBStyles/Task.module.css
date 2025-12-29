@@ -1,0 +1,88 @@
+.title{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 48px;
+    margin-bottom: 0vw;
+    margin-top: 4vw;
+}
+.task{
+    margin-top: 25px;
+    border: 2px solid #d9d9d9;
+    border-radius: 20px;
+}
+.taskText{
+    margin-left: 5vw;
+    margin-bottom: 49px;
+}
+.timeAndType{
+    display: flex;
+    flex-direction: row;
+}
+.time{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 3vw;
+}
+.time img{
+    width: 48px;
+    height: 48px;
+}
+.time p{
+    font-family: Montserrat-medium, sans-serif;
+    font-size: 32px;
+    margin-left: 15px;
+}
+.type{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.type img{
+    width: 48px;
+    height: 48px;
+}
+.type p{
+    font-family: Montserrat-medium, sans-serif;
+    font-size: 32px;
+    margin-left: 15px;
+}
+.text{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 32px;
+    width: 44vw;
+    margin-top: 0;
+    margin-bottom: 4vw;
+}
+.answerInput{
+    border: 3px solid #A2A2A2;
+    border-radius: 8px;
+    font-family: Montserrat-Regular, sans-serif;
+    font-size: 32px;
+    width: 44vw;
+    height: 7vh;
+    padding-left: 16px;
+    margin-right: 4vw;
+}
+.answerButton{
+    height: 7vh;
+    width: 12vw;
+    background-color: #6B63FF;
+    color: #FFFFFF;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 32px;
+    border: 0;
+    border-radius: 8px;
+}
+.solutionBlock{
+    margin-left: 5vw;
+}
+.solutionBlockTitle{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 40px;
+    margin-bottom: 48px;
+}
+.solution{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 32px;
+    margin-bottom: 5vw;
+}

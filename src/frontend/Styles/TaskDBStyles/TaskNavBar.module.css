@@ -1,0 +1,54 @@
+.title{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 32px;
+    margin-left: 1.5vw;
+}
+.option{
+    width: 11vw;
+    display: flex;
+    justify-content: center;
+    height: 4vh;
+    background-color: #FFFFFF;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 14px;
+    border-radius: 8px;
+    margin-right: 20px;
+    margin-bottom: 22px;
+    border: 2px solid #D9D9D9;
+}
+.currentOption{
+    display: flex;
+    justify-content: center;
+    width: 11vw;
+    height: 4vh;
+    background-color: #6B63FF;
+    color: #FFFFFF;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 14px;
+    border-radius: 8px;
+    margin-right: 20px;
+    margin-bottom: 22px;
+    border: 2px solid #D9D9D9;
+}
+.optionBlock{
+    display: flex;
+    align-items: center;
+}
+.mathOptionBlock{
+    display: flex;
+    align-items: center;
+}
+.mathOptionBlock:hover{
+
+}
+.mathOptionBlock img{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+.optionsBlock{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}

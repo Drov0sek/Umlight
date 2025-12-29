@@ -1,15 +1,18 @@
-import {useEffect} from "react";
 import {useSession} from "../customHooks/useSession.ts";
+import UserInfo from "./UserInfo.tsx";
+import profileStyle from '../Styles/ProfileStyles/Profile.module.css'
+import {Outlet} from "react-router";
 
 const Profile = () => {
     const user = useSession()
-    useEffect(() => {
-        console.log('user: ', user)
-    }, [user]);
     return (
-        <div>
-            <p>User: {[user.userId, user.role]}</p>
-        </div>
+        <main className={profileStyle.profile}>
+            <UserInfo userId={user.userId} role={user.role}/>
+            <section>
+                <p>Статистика</p>
+            </section>
+            <Outlet/>
+        </main>
     );
 };
 

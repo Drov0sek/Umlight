@@ -66,7 +66,8 @@ export class RegisterService {
                             gender : student.gender,
                             surname : student.surname,
                             email : student.email,
-                            age : student.age
+                            age : student.age,
+                            description : ''
                         }
                     })
             }
@@ -112,7 +113,9 @@ export class RegisterService {
                         password : hashSync(teacher.password,12),
                         surname : teacher.surname,
                         gender : teacher.gender,
-                        email : teacher.email
+                        email : teacher.email,
+                        description : '',
+                        age : 0
                     }
                 })
             }

@@ -1,4 +1,7 @@
-
+.img{
+    height: 200px;
+    width: 200px;
+}
 .buttons {
     font-family: "Montserrat", serif;
     display: flex;
@@ -68,6 +71,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 40px;
 }
 .desc{
     font-family: "Montserrat", serif;
@@ -86,6 +90,7 @@
     padding-left: 11px;
     color: #3E3BFF;
     margin-bottom: 0px;
+    margin-top: 0;
 }
 @font-face {
     font-family: "Montserrat";

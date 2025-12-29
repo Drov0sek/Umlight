@@ -1,0 +1,77 @@
+.nameAndImage{
+    display: flex;
+    flex-direction: row;
+    margin-top: 9vh;
+    margin-left: 6vw;
+    margin-right: 13vw;
+    align-items: center;
+}
+.image{
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    margin-right: 3vw;
+}
+.name{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 64px;
+}
+.infoTitle{
+    display: flex;
+    flex-direction: row;
+    margin-top: 9vh;
+    margin-left: 6vw;
+    margin-right: 13vw;
+    align-items: center;
+    justify-content: space-between;
+}
+.title{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 48px;
+}
+.titleImage{
+    width: 48px;
+    height: 48px;
+    margin-left: 15px;
+}
+.infoError{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 32px;
+    color: #FF8484;
+}
+.titleChanger{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.infoBlock{
+    border: 2px solid #E0E0E0;
+    border-radius: 20px;
+    padding-top: 4vh;
+    padding-left: 2vw;
+    margin: 15px 13vw 7vh 6vw;
+}
+.info{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 40px;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.underHeading{
+    font-family: Montserrat-Regular, sans-serif;
+    font-size: 32px;
+    margin-top: 15px;
+    margin-bottom: 35px;
+}
+@font-face {
+    font-family: "Montserrat-Regular";
+    src: url('../../Styles/fonts/static/Montserrat-Regular.ttf') format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}

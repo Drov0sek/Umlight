@@ -1,0 +1,69 @@
+.search{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.taskDB{
+    overflow-y: scroll;
+    height: 90vh;
+}
+.sortTitle{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 24px;
+    margin-left: 1.5vw;
+    margin-right: 12px;
+}
+.sort{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.sorter{
+    width: 15vw;
+    height: 4vh;
+    border: 2px solid #d9d9d9;
+    border-radius: 8px;
+    font-family: Montserrat-Bold, sans-serif;
+    font-size: 16px;
+}
+.sorterOption{
+    border: 2px solid #d9d9d9;
+    border-radius: 8px;
+    font-family: Montserrat-Bold, sans-serif;
+    font-size: 16px;
+}
+.hasDecisionChecker{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.hasDecisionChecker p{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 20px;
+    margin-left: 10px;
+}
+.hasDecisionChecker input{
+    margin-left: 25px;
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    border: 2px solid #d9d9d9;
+}
+.previewBlock{
+    display: flex;
+    flex-direction: row;
+    margin-top: 60px;
+}
+.previewNumber{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 32px;
+    border: 2px solid #d9d9d9;
+    border-radius: 15px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 27px;
+    margin-left: 43px;
+}
