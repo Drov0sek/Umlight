@@ -34,7 +34,7 @@ const TaskDb = () => {
                     (task.type && chosenTypes.includes(task.type));
                 const idMatch = idFilter === 0 ||
                     task.id.toString().includes(idFilter.toString());
-                const solutionMatch = !mustHaveSolutions || task.solution !== null;
+                const solutionMatch = !mustHaveSolutions || (task.solution !== null || task.solution !== '');
 
                 return subjectMatch && typeMatch && idMatch && solutionMatch;
             })
@@ -99,9 +99,8 @@ const TaskDb = () => {
         getTasks()
     }, []);
     useEffect(() => {
-        console.log(idFilter?.toString())
-        console.log('1'.includes('2'))
-    }, [idFilter]);
+        console.log(mustHaveSolutions)
+    }, [mustHaveSolutions]);
 
     return (
         <main className={taskDB.taskDB}>

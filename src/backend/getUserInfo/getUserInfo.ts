@@ -10,6 +10,12 @@ type DataType = {
     age : number,
     subjects : string[]
 }
+type UserTaskType = {
+    taskId : number,
+    subject : string,
+    isAnswerRight : boolean,
+    type : string | null
+}
 
 export class GetUserInfo{
     async getStudentInfo(id : number){
@@ -188,5 +194,89 @@ export class GetUserInfo{
             }).then(e => e.map(r => r.courseid))
             return courseIds
         }
+    }
+    async setActiveTime(activeTime : number, userId : number, role : string, userTimeDate : string){
+        await prisma.user_active_time.create({
+            data : {
+                user_id : userId,
+                role : role,
+                active_time : activeTime,
+                active_time_day : userTimeDate
+            }
+        })
+    }
+    async getActiveTime(userId : number, role : string){
+        const userTime = prisma.user_active_time.findMany({
+            where : {
+                user_id : userId,
+                role : role
+            }
+        })
+        return userTime
+    }
+    async setUserAnswerRight(userId : number, role : string, taskId : number, isAnswerRight : boolean){
+        await prisma.user_answers_right.create({
+            data : {
+                user_id : userId,
+                role : role,
+                task_id : taskId,
+                is_answer_right : isAnswerRight
+            }
+        })
+    }
+    async getUserTasksSubjects(userId : number, role : string){
+        const userTaskIds = await prisma.user_answers_right.findMany({
+            where : {
+                user_id : userId,
+                role : role
+            }
+        }).then(e => e.map(r => r.task_id))
+        const subjectIds = await prisma.public_tasks.findMany({
+            where : {
+                id : {
+                    in : userTaskIds
+                }
+            }
+        }).then(e => e.map(r => r.subject_id))
+        const subjects = await prisma.subjects.findMany({
+            where : {
+                id : {
+                    in : subjectIds
+                }
+            }
+        }).then(e => e.map(r => r.subject))
+        return subjects
+    }
+    async getUserTasks(userId : number, role : string){
+        const tasksArray = []
+        const userTasks = await prisma.user_answers_right.findMany({
+            where : {
+                user_id : userId,
+                role : role
+            }
+        })
+        for (let i = 0; i < userTasks.length; i++){
+            const taskSubjet = await prisma.public_tasks.findFirstOrThrow({
+                where : {
+                    id : userTasks[i].task_id
+                }
+            })
+            const taskSubject = await prisma.subjects.findFirstOrThrow({
+                where : {
+                    id : taskSubjet.subject_id
+                },
+                select : {
+                    subject : true
+                }
+            }).then(e => e.subject)
+            const userTask : UserTaskType = {
+                taskId : userTasks[i].task_id,
+                subject : taskSubject,
+                isAnswerRight : userTasks[i].is_answer_right,
+                type : taskSubjet.type
+            }
+            tasksArray.push(userTask)
+        }
+        return tasksArray
     }
 }

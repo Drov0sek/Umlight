@@ -1,6 +1,7 @@
 import {useParams} from "react-router";
 import {useEffect, useState} from "react";
 import taskStyle from '../Styles/TaskDBStyles/Task.module.css'
+import {useSession} from "../customHooks/useSession.ts";
 
 type TaskType = {
     image: string | null,
@@ -14,6 +15,7 @@ type TaskType = {
 }
 
 const Task = () => {
+    const {userId, role} = useSession()
     const {id} = useParams<{id : string}>()
     const taskId = Number(id)
     const mockTask: TaskType = {
@@ -27,7 +29,35 @@ const Task = () => {
         subject_id: 1
     };
     const [task, setTask] = useState<TaskType>(mockTask)
-    const [answerValue, setAnswerValue] = useState<string>()
+    const [answerValue, setAnswerValue] = useState<string>('')
+
+    async function checkAnswers() {
+        const isAnswerRight = answerValue === task.answer
+        console.log(JSON.stringify({
+            userId : userId,
+            role : role,
+            taskId : taskId,
+            isAnswerRight : isAnswerRight
+        }))
+        try{
+            const resp = await fetch('http://localhost:4200/api/setUserAnswerRight', {
+                headers : {
+                    'Content-Type': 'application/json'
+                },
+                method : 'POST',
+                body : JSON.stringify({
+                    userId : userId,
+                    role : role,
+                    taskId : taskId,
+                    isAnswerRight : isAnswerRight
+                })
+            })
+            if (!resp.ok){throw new Error()}
+        } catch (e) {
+            console.log(e)
+            alert('При сохранении правильности вашего ответа произошла ошибка')
+        }
+    }
 
     useEffect(() => {
         if (id){
@@ -39,9 +69,7 @@ const Task = () => {
                         const resp = await fetch(`http://localhost:4200/api/getTaskById/${taskId}`)
                         if (resp.ok){
                             const taskData : TaskType = await resp.json()
-                            console.log(taskData, task)
                             setTask(taskData)
-                            console.log(taskData, task)
 
                         } else{
                             alert('Произошла ошибка при загрузке задания. Зайдите на сайт позже')
@@ -55,11 +83,10 @@ const Task = () => {
             getTask()
         }
     }, [id]);
-
     useEffect(() => {
-        console.log(taskId)
-        console.log(task)
-    }, [taskId]);
+        console.log(userId)
+        console.log(role)
+    }, [userId, role]);
 
     return (
         <main className={taskStyle.task}>
@@ -84,7 +111,14 @@ const Task = () => {
                 <section className={taskStyle.getAnswer}>
                     <input className={taskStyle.answerInput} type='text' placeholder='Ответ' value={answerValue}
                            onChange={e => setAnswerValue(e.target.value)}/>
-                    <button className={taskStyle.answerButton}>Ответить</button>
+                    <button className={taskStyle.answerButton}onClick={() => {
+                        if (answerValue.toLowerCase() === task.answer?.toLowerCase()) {
+                            alert('Правильно')
+                        } else {
+                            alert('Неправильно')
+                        }
+                        checkAnswers()
+                    }}>Ответить</button>
                 </section>
             </section>
             <hr/>

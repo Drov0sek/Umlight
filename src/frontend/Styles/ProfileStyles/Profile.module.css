@@ -1,4 +1,41 @@
 .profile{
     overflow-y: auto;
     height: 90vh;
+    padding-left: 6vw;
+    padding-right: 13vw;
+}
+.statsTitle{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 48px;
+    margin-bottom: 24px;
+}
+.statsBlock{
+    border: 2px solid #d9d9d9;
+    padding-left: 2vw;
+    padding-right: 4vw;
+    border-radius: 20px;
+    padding-bottom: 14vh;
+}
+.egeTitle{
+    margin-top: 17vh;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 40px;
+    margin-bottom: 17px;
+}
+.egeBlock{
+    border: 2px solid #d9d9d9;
+    padding-left: 3vw;
+    padding-right: 5vw;
+    border-radius: 20px;
+}
+.studentCoursesTitle{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 40px;
+    margin-bottom: 17px;
+}
+.studentCoursesBlock{
+    border: 2px solid #d9d9d9;
+    border-radius: 20px;
+    padding-left: 4vw;
+    padding-right: 2vw;
 }

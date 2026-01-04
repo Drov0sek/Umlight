@@ -10,7 +10,7 @@
     "build:frontend": "vite build",
     "build:backend": "tsc -p tsconfig.backend.json",
     "build": "npm run build:frontend && npm run build:backend",
-    "loadContent" : "cd C:\\projects\\umlight_project4\\nginx-1.28.0 && start nginx",
+    "loadContent": "cd C:\\projects\\umlight_project4\\nginx-1.28.0 && start nginx",
     "start": "node dist/server.js",
     "postinstall": "npx prisma generate && npx prisma migrate deploy"
   },
@@ -19,6 +19,7 @@
     "@reduxjs/toolkit": "^2.8.2",
     "axios": "^1.10.0",
     "bcrypt": "^6.0.0",
+    "chart.js": "^4.5.1",
     "concurrently": "^9.1.2",
     "connect-pg-simple": "^10.0.0",
     "cors": "^2.8.5",
@@ -28,6 +29,7 @@
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.16.3",
     "react": "^19.1.0",
+    "react-chartjs-2": "^5.3.1",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
     "react-router": "^7.6.2",
@@ -37,6 +39,7 @@
   "devDependencies": {
     "@eslint/js": "^9.25.0",
     "@types/bcrypt": "^5.0.2",
+    "@types/chart.js": "^2.9.41",
     "@types/connect-pg-simple": "^7.0.3",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",

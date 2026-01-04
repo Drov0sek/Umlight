@@ -82,16 +82,18 @@ model courses_tags {
 }
 
 model lesson {
-  id                Int                 @id @default(autoincrement())
-  name              String
-  type              String
-  description       String?             @db.VarChar(250)
-  video             String?
-  time              Int?
-  numberoflesson    Int?
-  lesson_tasks      lesson_tasks[]
-  lessons_materials lessons_materials[]
-  modules_lessons   modules_lessons[]
+  id                    Int                     @id @default(autoincrement())
+  name                  String
+  type                  String
+  description           String?                 @db.VarChar(250)
+  video                 String?
+  time                  Int?
+  numberoflesson        Int?
+  lesson_tasks          lesson_tasks[]
+  lessons_materials     lessons_materials[]
+  modules_lessons       modules_lessons[]
+  seen_lessons          seen_lessons[]
+  done_practice_lessons done_practice_lessons[]
 }
 
 model lessons_materials {
@@ -134,12 +136,13 @@ model courses_students {
 }
 
 model lesson_tasks {
-  id        Int     @id
-  text      String
-  image     String?
-  answer    String
-  lesson_id Int?
-  lesson    lesson? @relation(fields: [lesson_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_lesson")
+  id                Int                 @id
+  text              String
+  image             String?
+  answer            String
+  lesson_id         Int?
+  lesson            lesson?             @relation(fields: [lesson_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_lesson")
+  done_lesson_tasks done_lesson_tasks[]
 }
 
 model modules_lessons {
@@ -176,9 +179,9 @@ model teachers_subjects {
 model subjects {
   id                Int                 @id @default(autoincrement())
   subject           String
+  public_tasks      public_tasks[]
   students_subjects students_subjects[]
   teachers_subjects teachers_subjects[]
-  public_tasks      public_tasks[]
 }
 
 model user_sessions {
@@ -199,4 +202,46 @@ model public_tasks {
   time       String?
   subject_id Int
   subjects   subjects @relation(fields: [subject_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model user_active_time {
+  user_id         Int
+  active_time     Int
+  id              Int    @id @default(autoincrement())
+  role            String
+  active_time_day String
+}
+
+model user_answers_right {
+  id              Int     @id @default(autoincrement())
+  user_id         Int
+  role            String
+  task_id         Int
+  is_answer_right Boolean
+}
+
+model seen_lessons {
+  id        Int    @id @default(autoincrement())
+  user_id   Int
+  role      String
+  lesson_id Int
+  lesson    lesson @relation(fields: [lesson_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model done_practice_lessons {
+  id                 Int    @id @default(autoincrement())
+  user_id            Int
+  role               String
+  practice_lesson_id Int
+  lesson             lesson @relation(fields: [practice_lesson_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model done_lesson_tasks {
+  id              Int          @id @default(autoincrement())
+  user_id         Int
+  role            String
+  lesson_task_id  Int
+  answer          String
+  is_answer_right Boolean
+  lesson_tasks    lesson_tasks @relation(fields: [lesson_task_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

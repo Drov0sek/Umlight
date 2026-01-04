@@ -1,13 +1,29 @@
 import HeaderTab from "../Styles/templates/HeaderTab.tsx";
 import header from "../Styles/Header.module.css"
-import { useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useSession} from "../customHooks/useSession.ts";
 
 const Header = () => {
     const user = useSession()
+    const location = useLocation()
     const [tabActive,setTabActive] = useState('Библиотека')
     const nav = useNavigate()
+    useEffect(() => {
+        const pathname = location.pathname
+        if (pathname.includes('/main')){
+            setTabActive('Библиотека')
+        }
+        if (pathname.includes('/userCourses')){
+            setTabActive('Мои курсы')
+        }
+        if (pathname.includes('/profile')){
+            setTabActive('Профиль')
+        }
+        if (pathname.includes('/taskDB')){
+            setTabActive('База заданий')
+        }
+    }, [location]);
     return (
         <header className={header.header}>
             <p className={header.title}>

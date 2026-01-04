@@ -1,0 +1,51 @@
+.subjectTitle{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 40px;
+    margin-bottom: 7vh;
+    margin-top: 3vh;
+}
+.tasksNumber{
+    font-family: Montserrat-medium, sans-serif;
+    font-size: 40px;
+    margin-top: 3vh;
+}
+.subjectTitleBlock{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.openedOpenBtn{
+    width: 50px;
+    height: 50px;
+    margin-top: 3vh;
+    margin-left: 20px;
+    transform: rotate(0deg);
+    transition: transform 300ms;
+}
+.closedOpenBtn{
+    width: 50px;
+    height: 50px;
+    margin-top: 3vh;
+    margin-left: 20px;
+    transform: rotate(-180deg);
+    transition: transform 300ms;
+}
+.taskDonePercentage{
+    font-family: Montserrat-medium, sans-serif;
+    font-size: 48px;
+    margin-top: 0;
+}
+.typePercentagesBlock{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.typePercentageBlock{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.typeSign{
+    font-family: Montserrat-medium, sans-serif;
+    font-size: 24px;
+}

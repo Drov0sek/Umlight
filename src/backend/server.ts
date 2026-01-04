@@ -319,6 +319,57 @@ async function main(){
             res.status(500).json(e)
         }
     })
+    app.post('/api/setActiveTime', async (req, res) => {
+        try {
+            const { activeTime, userId, role, userTimeDate } = req.body;
+            const result = await getUserInfo.setActiveTime(
+                Number(activeTime),
+                Number(userId),
+                role,
+                userTimeDate
+            );
+            res.status(200).json(result);
+        } catch (e) {
+            res.status(500).json(e);
+        }
+    });
+    app.get('/api/getActiveTime/:userId/:role',async (req, res) => {
+        try{
+            const result = await getUserInfo.getActiveTime(Number(req.params.userId), req.params.role)
+            res.status(200).json(result)
+        } catch (e) {
+            res.status(500).json(e)
+        }
+    })
+    app.post('/api/setUserAnswerRight', async (req, res) => {
+        try{
+            const {userId, role, taskId, isAnswerRight} = req.body
+            const result = await getUserInfo.setUserAnswerRight(Number(userId), role, Number(taskId), isAnswerRight)
+            res.status(200).json(result)
+        } catch (e) {
+            console.log(e)
+            res.status(500).json(e)
+        }
+
+    })
+    app.get('/api/getUserTasksSubjects/:userId/:role', async (req, res) => {
+        try{
+            const result = await getUserInfo.getUserTasksSubjects(Number(req.params.userId), req.params.role)
+            res.status(200).json(result)
+        } catch (e) {
+            console.log(e)
+            res.status(500).json(e)
+        }
+    })
+    app.get('/api/getUserTasks/:userId/:role', async (req, res) => {
+        try{
+            const result = await getUserInfo.getUserTasks(Number(req.params.userId), req.params.role)
+            res.status(200).json(result)
+        } catch (e) {
+            console.log(e)
+            res.status(500).json(e)
+        }
+    })
     app.use((req, res, next) => {
         // Если путь начинается с /api, пропускаем
         if (req.path.startsWith('/api')) return next();

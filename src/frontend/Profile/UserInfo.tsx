@@ -142,9 +142,6 @@ const UserInfo = ({userId, role} : PropsType) => {
         }
         getUserSubjects()
     }, [userId,role, state?.updated]);
-    useEffect(() => {
-        console.log(userSubjects)
-    }, [userSubjects]);
 
     function hasFullInfo(){
         const hasNullsInstudent = Object.values(student).some(e => e === null)
