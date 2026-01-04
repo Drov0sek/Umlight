@@ -1,22 +1,24 @@
-import express from 'express'
-import cors from 'cors'
-import {IncorrectDataError} from "./errors/IncorrectDataError.js";
-import {AuthService} from "./authorization/auth.service.js";
-import * as http from "node:http";
-import {NotUniqueLoginError} from "./errors/NotUniqueLoginError.js";
-import {PasswordTooWeakError} from "./errors/PasswordTooWeakError.js";
-import {RegisterService} from "./register/register.service.js";
-import {GetUserService} from "./API/getUserService.js";
-import {GetCourseParts} from "./Courses/getCourseParts.js";
-import {CourseInteraction} from "./Courses/courseInteraction.js";
-import {HasAlreadyJoinedError} from "./errors/HasAlreadyJoinedError.js";
+import express from 'express';
+import cors from 'cors';
+import session from 'express-session';
 import connectPgSimple from 'connect-pg-simple';
-import session from "express-session";
-import pg from "pg";
+import pg from 'pg';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import {GetUserInfo} from './getUserInfo/getUserInfo.js'
-import {GetTasksInfo} from "./TaskDB/getTasksInfo.js";
+import dotenv from 'dotenv';
+import { AuthService } from './authorization/auth.service.js';
+import { RegisterService } from './register/register.service.js';
+import { GetUserService } from './API/getUserService.js';
+import { GetUserInfo } from './getUserInfo/getUserInfo.js';
+import { GetTasksInfo } from './TaskDB/getTasksInfo.js';
+import { GetCourseParts } from './Courses/getCourseParts.js';
+import { CourseInteraction } from './Courses/courseInteraction.js';
+import { IncorrectDataError } from './errors/IncorrectDataError.js';
+import { NotUniqueLoginError } from './errors/NotUniqueLoginError.js';
+import { PasswordTooWeakError } from './errors/PasswordTooWeakError.js';
+import { HasAlreadyJoinedError } from './errors/HasAlreadyJoinedError.js';
+import * as http from 'node:http';
+
+dotenv.config();
 
 declare module "express-session" {
     interface SessionData {
@@ -25,54 +27,43 @@ declare module "express-session" {
     }
 }
 
-const app = express()
+const app = express();
+const allowedOrigins = process.env.FRONTEND_ORIGIN?.split(",") ?? [];
+
 app.use(cors({
-    origin: "http://localhost:5173", // твой фронт
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) return callback(null, true);
+        callback(new Error("Not allowed by CORS"));
+    },
     credentials: true
 }));
-app.use(express.json())
+
+app.use(express.json());
+
 const PgSession = connectPgSimple(session);
+const pgPool = new pg.Pool({ connectionString: process.env.DATABASE_URL || "postgresql://postgres:zar@localhost:5432/umlightDB?schema=public"});
 
-const pgPool = new pg.Pool({
-    connectionString: process.env.DATABASE_URL,
-});
-const signin = new AuthService()
-const registerUser = new RegisterService()
-const getUser = new GetUserService()
-const getCourseParts = new GetCourseParts()
-const courseInteraction = new CourseInteraction()
-const getUserInfo = new GetUserInfo()
-const getTasksInfo = new GetTasksInfo()
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const signin = new AuthService();
+const registerUser = new RegisterService();
+const getUser = new GetUserService();
+const getUserInfo = new GetUserInfo();
+const getTasksInfo = new GetTasksInfo();
+const getCourseParts = new GetCourseParts();
+const courseInteraction = new CourseInteraction();
 
-app.use(
-    session({
-        store: new PgSession({
-            pool: pgPool,
-            tableName: "user_sessions",
-            createTableIfMissing: true,
-        }),
-        secret: process.env.SESSION_SECRET!,
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            httpOnly: true,  // защищает от XSS
-            secure: false,    // только HTTP
-            sameSite: "lax", // защита от CSRF - none
-            maxAge: 1000 * 60 * 60 * 24 * 1, // 7 дней
-        },
-    })
-);
+// CommonJS-safe __dirname
+const __dirname = path.resolve();
 
+app.use(session({
+    store: new PgSession({ pool: pgPool, tableName: "user_sessions", createTableIfMissing: true }),
+    secret: process.env.SESSION_SECRET!,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", maxAge: 1000 * 60 * 60 * 24 }
+}));
 
-app.get('/',(req,res) => {
-    console.log(req)
-    res.send('Server is running');
-});
-
-app.use(express.static(path.join(__dirname, 'dist')));
-
+app.use(express.static(path.join(__dirname, "../client")));
 async function main(){
     app.post('/api/login',async (req,res) => {
         try {
@@ -374,10 +365,11 @@ async function main(){
         // Если путь начинается с /api, пропускаем
         if (req.path.startsWith('/api')) return next();
 
-        // Если путь не совпадает с файлом в dist, отдаём index.html
-        res.sendFile('index.html', { root: path.join(__dirname, 'dist') }, (err) => {
-            if (err) next(err);
-        });
+        res.sendFile(
+            "index.html",
+            { root: path.join(__dirname, "../client") }
+        );
+
     });
 }
 
@@ -385,11 +377,12 @@ main().catch(console.error)
 
 
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4200;
 const server = http.createServer(app);
 
 server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+    console.log('DATABASE_URL =', process.env.DATABASE_URL);
 });
 
 // Обработка ошибок при запуске сервера

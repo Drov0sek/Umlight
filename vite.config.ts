@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   root: ".", // корень проекта, где лежит index.html
   build: {
-    outDir: path.resolve(__dirname, "dist"), // куда класть сборку
+    outDir: "dist/client", // куда класть сборку
     emptyOutDir: true,
   },
   resolve: {
