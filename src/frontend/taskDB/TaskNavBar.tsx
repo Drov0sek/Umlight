@@ -12,7 +12,7 @@ const TaskNavBar = ({currentSubjectId, setCurrentSubjectId} : PropsType) => {
 
     function getSubjectOptions(){
         return subjects.map(e =>
-            <button onClick={() => {
+            <button key={subjects.indexOf(e)} onClick={() => {
                 setCurrentSubject(e)
                 setCurrentSubjectId(subjects.indexOf(e))
             }}

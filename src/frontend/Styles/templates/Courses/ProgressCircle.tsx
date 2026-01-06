@@ -1,11 +1,11 @@
 type ProgressCircleProps = {
     percent: number;
-    tasksNumber : number;
+    sign : string;
     size?: number;
     strokeWidth?: number;
 };
 
-const ProgressCircle = ({percent, size = 200, strokeWidth = 12, tasksNumber}: ProgressCircleProps) => {
+const ProgressCircle = ({percent, size = 200, strokeWidth = 12, sign}: ProgressCircleProps) => {
     const radius = (size - strokeWidth) / 2;
     const circumference = 2 * Math.PI * radius;
     const offset = circumference * (1 - percent / 100);
@@ -43,7 +43,7 @@ const ProgressCircle = ({percent, size = 200, strokeWidth = 12, tasksNumber}: Pr
                 y="45%"
                 textAnchor="middle"
                 dominantBaseline="middle"
-                fontSize="48"
+                fontSize={48 + 48 * (size / 200 - 1)}
                 fontWeight="600"
                 fontFamily={"Montserrat-bold"}
             >
@@ -55,11 +55,11 @@ const ProgressCircle = ({percent, size = 200, strokeWidth = 12, tasksNumber}: Pr
                 y="60%"
                 textAnchor="middle"
                 dominantBaseline="middle"
-                fontSize="13"
+                fontSize={13 + 13 * (size / 200 - 1)}
                 fill="#6B7280"
                 fontFamily={"Montserrat-Regular"}
             >
-                {tasksNumber} заданий
+                {sign}
             </text>
         </svg>
     );

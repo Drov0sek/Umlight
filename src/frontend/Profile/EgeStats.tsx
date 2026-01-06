@@ -23,7 +23,7 @@ const EgeStats = ({userId, role} : PropsType) => {
         return userTasksTypes.map(r => {
             return <section className={egeStats.typePercentageBlock}>
                 <section className={egeStats.typePercentageBlock}>
-                    <ProgressCircle percent={Math.round(userTasks.filter(o => o.type === r && o.isAnswerRight).length / userTasks.filter(o => o.type === r).length *     100)} tasksNumber={userTasks.filter(o => o.type === r).length}/>
+                    <ProgressCircle percent={Math.round(userTasks.filter(o => o.type === r && o.isAnswerRight).length / userTasks.filter(o => o.type === r).length *     100)} sign={`${userTasks.filter(o => o.type === r).length} заданий`}/>
                     <p className={egeStats.typeSign}>{r}</p>
                 </section>
             </section>
@@ -88,9 +88,6 @@ const EgeStats = ({userId, role} : PropsType) => {
         }
         getUserTasks()
     }, [userId, role]);
-    useEffect(() => {
-        console.log(userTasks)
-    }, [userTasks]);
     return (
         <section>
             {renderStats()}

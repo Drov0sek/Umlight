@@ -3,6 +3,7 @@ import LessonDesc from "./LessonDesc.tsx";
 import theoryLesson from '../../../CourseStyles/TheoryLesson.module.css'
 import {useEffect, useState} from "react";
 import {useParams} from "react-router";
+import {useSession} from "../../../../customHooks/useSession.ts";
 
 type LessonType = {
     id : number,
@@ -20,6 +21,7 @@ type MaterialType = {
 }
 
 const TheoryLesson = () => {
+    const {userId} = useSession()
     const {taskId} = useParams<{taskId : string}>()
     const lessonId = Number(taskId)
     const [lesson,setLesson] = useState<LessonType>({id : 0, type : '',video : '',time : 0,name : '',numberOfLesson : 0,description : ''})
@@ -62,6 +64,23 @@ const TheoryLesson = () => {
         getLesson()
         getLessonsMaterials()
     }, []);
+    useEffect(() => {
+        async function setSeenLesson(){
+            if (lesson.id > 0){
+                try {
+                    const resp = await fetch(`http://localhost:4200/api/setSeenLesson/${userId}/${lesson.id}`,{
+                        method : 'POST'
+                    })
+                    if (!resp.ok){
+                        throw new Error()
+                    }
+                } catch (e) {
+                    console.log(e)
+                }
+            }
+        }
+        setSeenLesson()
+    }, [lesson]);
     return (
         <div className={theoryLesson.main}>
             <section className={theoryLesson.lesson}>

@@ -140,7 +140,7 @@ model lesson_tasks {
   text              String
   image             String?
   answer            String
-  lesson_id         Int?
+  lesson_id         Int
   lesson            lesson?             @relation(fields: [lesson_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_lesson")
   done_lesson_tasks done_lesson_tasks[]
 }

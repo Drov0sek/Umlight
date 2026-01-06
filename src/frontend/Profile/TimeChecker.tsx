@@ -28,7 +28,6 @@ const TimeChecker = ({userId, role} : PropsType) => {
             const weekArray : string[] = []
             for (let i = 6;i >= 0;i--){
                 if (lastDay - i <= 0){
-                    console.log(lastDay - i)
                     const date = `${daysInMonths[lastMonth - 2 > 0 ? lastMonth - 2 : 11] + (lastDay - i)}.${lastMonth - 1 > 0 ? lastMonth - 1 : 12}`
                     weekArray.push(date)
                 } else{

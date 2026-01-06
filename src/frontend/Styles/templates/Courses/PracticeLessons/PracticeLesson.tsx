@@ -4,6 +4,7 @@ import {useParams} from "react-router";
 import TaskStats from "./TaskStats.tsx";
 import practiceLessonStyle from '../../../CourseStyles/PraciceLesson.module.css'
 import PracticeLessonDesc from "./PracticeLessonDesc.tsx";
+import {useSession} from "../../../../customHooks/useSession.ts";
 
 type PracticeLessonsType = {
     id: number
@@ -25,6 +26,7 @@ type CompletedTask = {
 }
 
 const PracticeLesson = () => {
+    const {userId} = useSession()
     const {practiceId} = useParams<{practiceId : string}>()
     const lessonId = Number(practiceId) || 2
     const [lessonTasks,setLessonTasks] = useState<LessonTask[]>([{id : 0, text : '', image : '', answer : ''}])
@@ -56,8 +58,28 @@ const PracticeLesson = () => {
             return [...prev, taskNumber].sort((a,b) => a - b);
         });
     }
-
-    function checkAnswers(){
+    async function setDoneLessonTask(taskId : number, userId : number, answer : string, isAnswerRight : boolean){
+        try {
+            const resp = await fetch('http://localhost:4200/api/setDonePracticeLessonTask', {
+                headers : {
+                    'Content-Type': 'application/json'
+                },
+                method : 'POST',
+                body : JSON.stringify({
+                    userId : userId,
+                    lessonTaskId : taskId,
+                    answer : answer,
+                    isAnswerRight : isAnswerRight
+                })
+            })
+            if (!resp.ok){
+                throw new Error()
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    async function checkAnswers(){
         const sortedCompleted = [...completedTasks].sort((a,b) => a.numberOfTask - b.numberOfTask);
         const correctNums: number[] = [];
         for (let i = 0; i < sortedCompleted.length; i++){
@@ -66,12 +88,14 @@ const PracticeLesson = () => {
             const correctAnswer = lessonTasks[taskNum - 1]?.answer ?? '';
             if (userAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase()){
                 correctNums.push(taskNum);
+                await setDoneLessonTask(lessonTasks[taskNum - 1].id, userId, userAnswer, true)
+            } else {
+                await setDoneLessonTask(lessonTasks[taskNum - 1].id, userId, userAnswer, false)
             }
         }
+        console.log(correctNums)
         setRightTasks(correctNums);
     }
-
-
 
     useEffect(() => {
         async function getLesson(){
@@ -108,10 +132,7 @@ const PracticeLesson = () => {
         }
         getLessonTasks()
     }, [lessonId]);
-    useEffect(() => {
-        console.log(lessonTasks)
-        console.log(completedTaskNumbers)
-    }, [lessonTasks, completedTaskNumbers]);
+
     return (
         <main className={practiceLessonStyle.main}>
             <LessonTask text={currentTask.text} numberOfTask={currentTaskNumber} answer={currentTask.answer} id={currentTask.id}
@@ -131,7 +152,7 @@ const PracticeLesson = () => {
             </LessonTask>
             <section className={practiceLessonStyle.bottom}>
                 <TaskStats tasks={lessonTasks} numOfTask={currentTaskNumber} completedTasks={completedTaskNumbers}
-                           setCurrentTask={setCurrentTask} rightTasks={rightTasks} checkAnswers={checkAnswers}/>
+                           setCurrentTask={setCurrentTask} rightTasks={rightTasks} checkAnswers={checkAnswers} lessonId={practiceLesson.id}/>
                 <PracticeLessonDesc description={practiceLesson.description}/>
             </section>
         </main>

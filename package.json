@@ -2,7 +2,7 @@
   "name": "umlight_project4",
   "private": true,
   "version": "0.0.0",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\" \"npm run loadContent\" ",
     "dev:frontend": "vite",

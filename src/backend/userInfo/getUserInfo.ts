@@ -16,6 +16,46 @@ type UserTaskType = {
     isAnswerRight : boolean,
     type : string | null
 }
+type UserLessonTaskDataType = {
+    tasksAmount : number,
+    rightAnswersPercentage : number,
+    lessonName : string
+}
+
+async function getCourseLessons(courseId : number, needTypes : boolean, type : string){
+    const moduleIds = await prisma.courses_modules.findMany({
+        where : {
+            courseid : courseId
+        }
+    }).then(e => e.map(r => r.moduleid))
+    if (needTypes){
+        const courseLessonIds = await prisma.modules_lessons.findMany({
+            where : {
+                moduleid : {
+                    in : moduleIds
+                }
+            }
+        }).then(e => e.map(r => r.lessonid))
+        const courseLessonsWithTypesIds = await prisma.lesson.findMany({
+            where : {
+                id : {
+                    in : courseLessonIds
+                },
+                type : type
+            }
+        }).then(e => e.map(r => r.id))
+        return courseLessonsWithTypesIds
+    } else {
+        const courseLessonIds = await prisma.modules_lessons.findMany({
+            where : {
+                moduleid : {
+                    in : moduleIds
+                }
+            }
+        }).then(e => e.map(r => r.lessonid))
+        return courseLessonIds
+    }
+}
 
 export class GetUserInfo{
     async getStudentInfo(id : number){
@@ -278,5 +318,151 @@ export class GetUserInfo{
             tasksArray.push(userTask)
         }
         return tasksArray
+    }
+    async getStudentCoursesData(userId : number){
+        const courseIds = await prisma.courses_students.findMany({
+            where : {
+                studentid : userId
+            }
+        }).then(e => e.map(r => r.courseid))
+        const courses = await prisma.courses.findMany({
+            where : {
+                id : {
+                    in : courseIds
+                }
+            }
+        })
+        return courses
+    }
+    async getStudentDonePracticeLessonsPercentages(userId : number, courseId : number){
+        const allPracticeLessonsIds = await getCourseLessons(courseId, true, 'Практика')
+        const donePracticeLessonIds = await prisma.done_practice_lessons.findMany({
+            where : {
+                user_id : userId,
+                practice_lesson_id : {
+                    in : allPracticeLessonsIds
+                }
+            }
+        }).then(e => e.map(r => r.practice_lesson_id))
+        const allPracticeLessons = await prisma.lesson.findMany({
+            where : {
+                type : 'Практика',
+                id : {
+                    in : allPracticeLessonsIds
+                }
+            }
+        })
+        if (allPracticeLessons.length !== 0){
+            return Math.round(donePracticeLessonIds.length / allPracticeLessons.length * 100)
+        }
+        else{
+            return 0
+        }
+    }
+    async getSeenLessonsAmount(userId : number, courseId : number){
+        const allLessonsIds = await getCourseLessons(courseId, false, '')
+        const seenLessonsAmount = await prisma.seen_lessons.findMany({
+            where : {
+                user_id : userId,
+                lesson_id : {
+                    in : allLessonsIds
+                }
+            }
+        }).then(e => e.length)
+        const donePracticeLessonAmount = await prisma.done_practice_lessons.findMany({
+            where : {
+                user_id : userId,
+                practice_lesson_id : {
+                    in : allLessonsIds
+                }
+            }
+        }).then(e => e.length)
+        return Math.round((seenLessonsAmount + donePracticeLessonAmount) / allLessonsIds.length * 100)
+    }
+    async getSeenModulesPercentage(userId : number, courseId : number){
+        const allLessonsIds = await getCourseLessons(courseId, false, '')
+        const seenLessonsId = await prisma.seen_lessons.findMany({
+            where : {
+                user_id : userId,
+                lesson_id : {
+                    in : allLessonsIds
+                }
+            }
+        }).then(e => e.map(r => r.lesson_id))
+        const donePracticeLessonIds = await prisma.done_practice_lessons.findMany({
+            where : {
+                user_id : userId,
+                practice_lesson_id : {
+                    in : allLessonsIds
+                }
+            }
+        }).then(e => e.map(r => r.practice_lesson_id))
+        const courseModules = await prisma.courses_modules.findMany({
+            where : {
+                courseid : courseId
+            }
+        }).then(e => e.map(r => r.moduleid))
+        let seenModules = 0
+        for (let i = 0; i < courseModules.length;i++){
+            const moduleLessons = await prisma.modules_lessons.findMany({
+                where : {
+                    moduleid : courseModules[i]
+                }
+            }).then(e => e.map(r => r.lessonid))
+            console.log(moduleLessons, seenLessonsId)
+            if (moduleLessons.every(el => seenLessonsId.includes(el) || donePracticeLessonIds.includes(el))){
+                seenModules = seenModules + 1
+            }
+        }
+        return Math.round(seenModules / courseModules.length * 100)
+    }
+    async getDonePracticeTasksAnswerRightData(userId : number, courseId : number){
+        const allCourseLessons = await getCourseLessons(courseId, false, '')
+        const AllDonePracticeTaskIds = await prisma.done_lesson_tasks.findMany({
+            where : {
+                user_id : userId
+            }
+        }).then(e => e.map(r => r.lesson_task_id))
+        const allDonePracticeTasksLessonIds = await prisma.lesson_tasks.findMany({
+            where : {
+                id : {
+                    in : AllDonePracticeTaskIds
+                }
+            }
+        }).then(e => e.map(r => r.lesson_id))
+        const lessonIds = allCourseLessons.filter(id =>
+            allDonePracticeTasksLessonIds.includes(id)
+        );
+        const userTaskDataArr = []
+        console.log(lessonIds)
+        for (let i = 0; i < lessonIds.length;i++){
+            const lessonName = await prisma.lesson.findFirstOrThrow({
+                where : {
+                    id : lessonIds[i]
+                }
+            }).then(e => e.name)
+            const lessonTaskIds = await prisma.lesson_tasks.findMany({
+                where : {
+                    lesson_id : lessonIds[i]
+                }
+            }).then(e => e.map(r => r.id))
+            console.log('taks', lessonTaskIds)
+            const rightLessonTasksPercentage = await prisma.done_lesson_tasks.findMany({
+                where : {
+                    lesson_task_id : {
+                        in : lessonTaskIds
+                    }
+                }
+            }).then(e => Math.round(e.map(r => r.is_answer_right).filter(r => r).length / e.map(r => r.is_answer_right).length * 100))
+            const userTaskData : UserLessonTaskDataType = {
+                tasksAmount : lessonTaskIds.length,
+                rightAnswersPercentage : rightLessonTasksPercentage,
+                lessonName : lessonName
+            }
+            userTaskDataArr.push(userTaskData)
+            console.log(userTaskData)
+        }
+        console.log(userTaskDataArr)
+        return userTaskDataArr
     }
 }

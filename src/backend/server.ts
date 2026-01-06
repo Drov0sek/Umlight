@@ -8,7 +8,7 @@ import dotenv from 'dotenv';
 import { AuthService } from './authorization/auth.service.js';
 import { RegisterService } from './register/register.service.js';
 import { GetUserService } from './API/getUserService.js';
-import { GetUserInfo } from './getUserInfo/getUserInfo.js';
+import { GetUserInfo } from './userInfo/getUserInfo.js';
 import { GetTasksInfo } from './TaskDB/getTasksInfo.js';
 import { GetCourseParts } from './Courses/getCourseParts.js';
 import { CourseInteraction } from './Courses/courseInteraction.js';
@@ -17,6 +17,7 @@ import { NotUniqueLoginError } from './errors/NotUniqueLoginError.js';
 import { PasswordTooWeakError } from './errors/PasswordTooWeakError.js';
 import { HasAlreadyJoinedError } from './errors/HasAlreadyJoinedError.js';
 import * as http from 'node:http';
+import {SetUserInfo} from "./userInfo/setUserInfo.js";
 
 dotenv.config();
 
@@ -51,6 +52,7 @@ const getUserInfo = new GetUserInfo();
 const getTasksInfo = new GetTasksInfo();
 const getCourseParts = new GetCourseParts();
 const courseInteraction = new CourseInteraction();
+const setUserInfo = new SetUserInfo()
 
 // CommonJS-safe __dirname
 const __dirname = path.resolve();
@@ -355,6 +357,79 @@ async function main(){
     app.get('/api/getUserTasks/:userId/:role', async (req, res) => {
         try{
             const result = await getUserInfo.getUserTasks(Number(req.params.userId), req.params.role)
+            res.status(200).json(result)
+        } catch (e) {
+            console.log(e)
+            res.status(500).json(e)
+        }
+    })
+    app.get('/api/getStudentCoursesData/:userId', async (req, res) => {
+        try{
+            const result = await getUserInfo.getStudentCoursesData(Number(req.params.userId))
+            res.status(200).json(result)
+        }catch (e) {
+            console.log(e)
+            res.status(500).json(e)
+        }
+    })
+    app.post('/api/setSeenLesson/:userId/:seenLesson', async (req, res) => {
+        try{
+            const result = await setUserInfo.setSeenLesson(Number(req.params.userId), Number(req.params.seenLesson))
+            res.status(200).json(result)
+        } catch (e) {
+            console.log(e)
+            res.status(500).json(e)
+        }
+    })
+    app.post('/api/setDonePracticeLesson/:userId/:practiceLessonId', async (req, res) => {
+        try{
+            const result = await setUserInfo.setDonePracticeLesson(Number(req.params.userId), Number(req.params.practiceLessonId))
+            res.status(200).json(result)
+        } catch (e) {
+            console.log(e)
+            res.status(500).json(e)
+        }
+    })
+    app.post('/api/setDonePracticeLessonTask', async (req, res) => {
+        try{
+            const {userId, lessonTaskId, answer, isAnswerRight} = req.body
+            const result = await setUserInfo.setDonePracticeLessonTasks(Number(userId), Number(lessonTaskId), answer, isAnswerRight)
+            res.status(200).json(result)
+        } catch (e) {
+            console.log(e)
+            res.status(500).json(e)
+        }
+    })
+    app.get('/api/getUserSeenLessonsAmount/:userId/:courseId', async (req, res) => {
+        try{
+            const result = await getUserInfo.getSeenLessonsAmount(Number(req.params.userId), Number(req.params.courseId))
+            res.status(200).json(result)
+        } catch (e) {
+            console.log(e)
+            res.status(500).json(e)
+        }
+    })
+    app.get('/api/getUserSeenModulePercentage/:userId/:courseId', async (req, res) => {
+        try{
+            const result = await getUserInfo.getSeenModulesPercentage(Number(req.params.userId), Number(req.params.courseId))
+            res.status(200).json(result)
+        } catch (e) {
+            console.log(e)
+            res.status(500).json(e)
+        }
+    })
+    app.get('/api/getUserDonePracticeLessonsPercentage/:userId/:courseId', async (req, res) => {
+        try{
+            const result = await getUserInfo.getStudentDonePracticeLessonsPercentages(Number(req.params.userId), Number(req.params.courseId))
+            res.status(200).json(result)
+        } catch (e) {
+            console.log(e)
+            res.status(500).json(e)
+        }
+    })
+    app.get('/api/getUserTasksAnswerRightData/:userId/:courseId', async (req, res) => {
+        try{
+            const result = await getUserInfo.getDonePracticeTasksAnswerRightData(Number(req.params.userId), Number(req.params.courseId))
             res.status(200).json(result)
         } catch (e) {
             console.log(e)
