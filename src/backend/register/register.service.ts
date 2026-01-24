@@ -64,15 +64,16 @@ export class RegisterService {
                             login : student.login,
                             password : hashSync(student.password,12),
                             gender : student.gender,
-                            surname : student.surname,
+                            surname : student.surname ?? '',
                             email : student.email,
-                            age : student.age,
+                            age : student.age ?? 0,
                             description : ''
                         }
                     })
             }
             catch (e){
                 console.log(e)
+                throw e
             }
         }
         else {
@@ -106,14 +107,15 @@ export class RegisterService {
         const teacherEmailsText = teacherEmails.map(r => r.email)
         try {
             if (teacherEmailsText.indexOf(teacher.email) === -1 && teacherLoginsText.indexOf(teacher.login) === -1 && studentLoginsText.indexOf(teacher.login) === -1 && studentEmailsText.indexOf(teacher.email) === -1){
+                console.log('ok')
                 await prisma.teachers.create({
                     data : {
                         name : teacher.name,
                         login : teacher.login,
                         password : hashSync(teacher.password,12),
-                        surname : teacher.surname,
-                        gender : teacher.gender,
-                        email : teacher.email,
+                        surname : teacher.surname ?? '',
+                        gender : teacher.gender ?? '',
+                        email : teacher.email ?? '',
                         description : '',
                         age : 0
                     }
@@ -125,6 +127,7 @@ export class RegisterService {
         }
         catch (e){
             console.log(e)
+            throw e
         }
     }
 }

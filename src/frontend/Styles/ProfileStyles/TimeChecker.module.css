@@ -1,6 +1,7 @@
 .graphBlock{
     height: 52vh;
     width: 72vw;
+    margin-bottom: 17vh;
 }
 .title{
     font-family: Montserrat-bold, sans-serif;

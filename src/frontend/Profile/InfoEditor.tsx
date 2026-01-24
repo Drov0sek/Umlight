@@ -111,13 +111,10 @@ const InfoEditor = () => {
         }
         getUserSubjects()
     }, [user, isEdited]);
-    useEffect(() => {
-        console.log(surnameName.split(' ')[surnameName.split(' ').length - 1])
-    }, [surnameName]);
     async function setNewInfo(){
         let newInfo : DataType
         if (surnameName.split(' ').length > 1){
-            newInfo = {name : surnameName.split(' ')[-1], surname : surnameName.split(' ')[0], age : age, desc : desc, nickname : nickname, subjects : userSubjects}
+            newInfo = {name : surnameName.split(' ')[1], surname : surnameName.split(' ')[0], age : age, desc : desc, nickname : nickname, subjects : userSubjects}
         }
         else {
             newInfo = {name : surnameName.split(' ')[0], surname : '', age : age, desc : desc, nickname : nickname, subjects : userSubjects}
@@ -146,15 +143,19 @@ const InfoEditor = () => {
     }
 
     return (
-        <Modal isOpen={isOpened} onClose={() => nav(`/profile/${user.role}_${user.userId}`)} children={
+        <Modal isOpen={isOpened} onClose={() => nav(`/profile/${user.role}_${user.userId}/false`)} children={
             <section className={infoEditor.inputEditor}>
-                <section className={infoEditor.inputBlock}>
+                {user.role === 'student' ? <section className={infoEditor.inputBlock}>
                     <p className={infoEditor.inputTitle}>Отображаемое имя</p>
-                    <input className={infoEditor.inputText} value={typeof nickname !== 'object' && typeof nickname !== 'undefined' ? nickname : ''} type={'text'} onChange={e => setNickname(e.target.value)}/>
-                </section>
+                    <input className={infoEditor.inputText}
+                           value={typeof nickname !== 'object' && typeof nickname !== 'undefined' ? nickname : ''}
+                           type={'text'} onChange={e => setNickname(e.target.value)}/>
+                </section> : <></>}
                 <section className={infoEditor.inputBlock}>
                     <p className={infoEditor.inputTitle}>Описание</p>
-                    <input className={infoEditor.inputText} type={'text'} value={typeof desc !== 'object' && typeof desc !== 'undefined' ? desc : ''} onChange={e => setDesc(e.target.value)}/>
+                    <textarea className={infoEditor.inputText} rows={8}
+                              value={typeof desc !== 'object' && typeof desc !== 'undefined' ? desc : ''}
+                              onChange={e => setDesc(e.target.value)}></textarea>
                 </section>
                 <section className={infoEditor.inputBlock}>
                     <p className={infoEditor.inputTitle}>Фамилия Имя</p>
@@ -164,15 +165,16 @@ const InfoEditor = () => {
                     <p className={infoEditor.inputTitle}>Возраст</p>
                     <input className={infoEditor.inputText} type={'text'} value={typeof age !== 'object' && typeof age !== 'undefined' ? age : ''} onChange={e => setAge(Number(e.target.value))}/>
                 </section>
-                <section className={infoEditor.inputBlock}>
+                {user.role === 'student' ? <section className={infoEditor.inputBlock}>
                     <p className={infoEditor.inputTitle}>Предметы ГИА</p>
-                    <MultipleSelect sentOptions={userSubjects} options={subjects} changer={(newSubjescts) => setUserSubjects(newSubjescts)}/>
-                </section>
+                    <MultipleSelect sentOptions={userSubjects} options={subjects}
+                                    changer={(newSubjescts) => setUserSubjects(newSubjescts)}/>
+                </section> : <></>}
                 <button className={infoEditor.button} onClick={() => {
                     setNewInfo()
                     setIsEdited(false)
-                    nav(`/profile/${user.role}_${user.userId}`, {
-                        state: { updated: true }
+                    nav(`/profile/${user.role}_${user.userId}/false`, {
+                        state: {updated: true}
                     })
                 }}>Изменить</button>
             </section>

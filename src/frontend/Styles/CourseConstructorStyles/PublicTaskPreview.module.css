@@ -1,0 +1,66 @@
+.title{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(36vw / 1920 * 100);
+    margin-top: calc(35vh / 1080 * 100);
+}
+.taskBlock{
+    width: calc(1155vw / 1920 * 100);
+    max-height: calc(535vh / 1080 * 100);
+    border: 1px solid #d9d9d9;
+    border-top-right-radius: calc(20vh / 1080 * 100);
+    border-top-left-radius: calc(20vh / 1080 * 100);
+    padding-left: calc(35vw / 1920 * 100);
+}
+.timeOrTypeBlock{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.timeOrTypeBlock img{
+    width: calc(31vw / 1920 * 100);
+    height : calc(31vh / 1080 * 100);
+    margin-right: calc(8vw / 1920 * 100);
+}
+.timeOrTypeBlock p{
+    font-family: Montserrat-medium, sans-serif;
+    font-size: calc(24vw / 1920 * 100);
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: calc(42vw / 1920 * 100);
+}
+.timeAndTypeBlock{
+    display: flex;
+    flex-direction: row;
+}
+.taskText{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(24vw / 1920 * 100);
+}
+.showAnswerBtn{
+    border: 0;
+    background-color: #FFFFFF;
+    color: #3E3BFF;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(24vw / 1920 * 100);
+    margin-top: calc(70vh / 1080 * 100);
+    margin-bottom: calc(40vh / 1080 * 100);
+}
+.answerText{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(24vw / 1920 * 100);
+    margin-top: calc(70vh / 1080 * 100);
+    margin-right: calc(20vw / 1920 * 100);
+    margin-bottom: calc(40vh / 1080 * 100);
+}
+.deleteBtn{
+    height: calc(70vh / 1080 * 100);
+    width: calc((1155vw + 37vw) / 1920 * 100);
+    border: 1px solid #d9d9d9;
+    border-bottom-right-radius: calc(20vh / 1080 * 100);
+    border-bottom-left-radius: calc(20vh / 1080 * 100);
+    background-color: #FFFFFF;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(24vw / 1920 * 100);
+    color: #FF0000;
+    margin-bottom: calc(25vh / 1080 * 100);
+}

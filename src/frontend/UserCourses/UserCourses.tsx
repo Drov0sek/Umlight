@@ -1,10 +1,13 @@
 import {useSession} from "../customHooks/useSession.ts";
 import {useEffect, useState} from "react";
 import CourseCard from "../Styles/templates/Courses/CourseCard.tsx";
+import {useNavigate} from "react-router-dom";
+import userCourses from '../Styles/UserCoursesStyles/UserCourses.module.css'
 
 const UserCourses = () => {
     const user = useSession()
     const [courseIds, setCourseIds] = useState<number[]>([])
+    const nav = useNavigate()
 
     useEffect(() => {
         async function getUserCourses(){
@@ -32,7 +35,10 @@ const UserCourses = () => {
     }, [courseIds]);
 
     function renderCourses() {
-        return <section>
+        return <section className={userCourses.userCoursesBlock}>
+            {courseIds.map(e => <div>
+                <CourseCard courseId={e}/>
+            </div>)}
             {courseIds.map(e => <div>
                 <CourseCard courseId={e}/>
             </div>)}
@@ -41,6 +47,7 @@ const UserCourses = () => {
     return (
         <main>
             {renderCourses()}
+            {user.role === 'teacher' ? <button className={userCourses.createCourseBtn} onClick={() => nav('/courseConstructor')}>Создать курс</button> : <></>}
         </main>
     );
 };

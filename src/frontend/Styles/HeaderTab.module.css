@@ -1,5 +1,5 @@
 .title{
-    font-size: 20px;
+    font-size: calc(20vw / 1920 * 100);
     font-family: Montserrat,sans-serif;
     padding: 0px 8px;
 }
@@ -7,7 +7,7 @@
     cursor: pointer;
 }
 .selectedTab{
-    border-bottom: 4px solid black;
+    border-bottom: calc(4vh / 1080 * 100) solid black;
 }
 @font-face {
     font-family: "Montserrat";

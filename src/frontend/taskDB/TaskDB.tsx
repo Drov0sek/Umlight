@@ -4,6 +4,11 @@ import SerachByType from "./SerachByType.tsx";
 import taskDB from '../Styles/TaskDBStyles/TaskDB.module.css'
 import {useEffect, useState} from "react";
 import TaskPreview from "./TaskPreview.tsx";
+import {useDispatch, useSelector} from "react-redux";
+import type {RootState} from "../store/store.ts";
+import {addLessonTask} from "../store/slices/editLessonsReducer.ts";
+import {useParams} from "react-router";
+import {useNavigate} from "react-router-dom";
 
 type TaskType = {
     image: string | null,
@@ -15,6 +20,11 @@ type TaskType = {
     solution: string | null,
     subject_id : number
 }
+type PracticeLessonPublicTaskType = {
+    numberOfLesson : number,
+    moduleName : string,
+    publicTaskId : number
+}
 
 const TaskDb = () => {
     const [mustHaveSolutions, setMustHaveSolutions] = useState(false)
@@ -25,6 +35,10 @@ const TaskDb = () => {
     const [types, setTypes] = useState<string[]>([])
     const [chosenTypes, setChosenTypes] = useState<string[]>([])
     const [subjects] = useState<string[]>(["Профильная математика","Русский язык","Информатика","Физика","Базовая математика","Химия","История","Обществознание","Биология","География","Английский язык","Немецкий язык","Французский язык","Испанский язык","Китайский язык","Литература"])
+    const currentLesson = useSelector((state : RootState) => state.editLessonsReducer.currentLesson)
+    const dispatch = useDispatch()
+    const {isRedirected} = useParams<string>()
+    const nav = useNavigate()
 
     function getTaskPreviews(){
         return tasks
@@ -39,7 +53,10 @@ const TaskDb = () => {
                 return subjectMatch && typeMatch && idMatch && solutionMatch;
             })
             .map((e, index) => (
-                <div key={e.id} className={taskDB.previewBlock}>
+                <div key={e.id} className={taskDB.previewBlock} onClick={() => {
+                    if (isRedirected === 'true'){
+                        addNewLessonTask(e.id)
+                }}}>
                     <div className={taskDB.previewNumber}>{index + 1}</div>
                     <TaskPreview
                         image={e.image}
@@ -62,6 +79,15 @@ const TaskDb = () => {
     }
     function setTypesFilter(newTypes : string[]){
         setChosenTypes(newTypes)
+    }
+    function addNewLessonTask(taskId : number){
+        const lessonTaskObj : PracticeLessonPublicTaskType = {
+            moduleName : currentLesson.moduleName,
+            numberOfLesson : currentLesson.numberOfLesson,
+            publicTaskId : taskId,
+        }
+        dispatch(addLessonTask(lessonTaskObj))
+        nav(`/courseConstructor/${currentLesson.moduleName}/${currentLesson.numberOfLesson}`)
     }
 
     useEffect(() => {

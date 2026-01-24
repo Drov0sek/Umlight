@@ -24,19 +24,17 @@ const TimeChecker = ({userId, role} : PropsType) => {
         const lastDay = Number(lastDate.split('.')[0])
         const lastMonth = Number(lastDate.split('.')[1])
         const daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        if (lastDay < 7){
-            const weekArray : string[] = []
-            for (let i = 6;i >= 0;i--){
-                if (lastDay - i <= 0){
-                    const date = `${daysInMonths[lastMonth - 2 > 0 ? lastMonth - 2 : 11] + (lastDay - i)}.${lastMonth - 1 > 0 ? lastMonth - 1 : 12}`
-                    weekArray.push(date)
-                } else{
-                    const date = `${lastDay - i}.${lastMonth}`
-                    weekArray.push(date)
-                }
+        const weekArray : string[] = []
+        for (let i = 6;i >= 0;i--){
+            if (lastDay - i <= 0){
+                const date = `${daysInMonths[lastMonth - 2 > 0 ? lastMonth - 2 : 11] + (lastDay - i)}.${lastMonth - 1 > 0 ? lastMonth - 1 : 12}`
+                weekArray.push(date)
+            } if (lastDay - i > 0){
+                const date = `${lastDay - i}.${lastMonth}`
+                weekArray.push(date)
             }
-            setGraphDays(weekArray)
         }
+        setGraphDays(weekArray)
     }
 
 

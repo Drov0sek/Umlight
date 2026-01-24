@@ -1,0 +1,36 @@
+.teacherFinderBlock{
+    border: 2px solid #d9d9d9;
+    border-radius: 8px;
+    width: 22vw;
+    height: 23vh;
+    margin-left: 25px;
+    margin-bottom: 17px;
+    margin-top: 0;
+    padding: 15px 20px 16px;
+}
+.nameAndImgBlock{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.name{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(22vw / 1920 * 100);
+}
+.image{
+    width: calc(44vw / 1920 * 100);
+    height: calc(44vw / 1920 * 100);
+    border-radius: 50%;
+    margin-right: 9px;
+}
+.desc{
+    font-family: Montserrat-bold, sans-serif;
+    overflow-wrap: break-word;
+    font-size: calc(14vw / 1920 * 100);
+}
+.teacherFinder{
+    padding-left: 2vw;
+    padding-top: 7vh;
+    display: flex;
+    flex-direction: row;
+}

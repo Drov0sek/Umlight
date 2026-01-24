@@ -23,6 +23,15 @@ const Header = () => {
         if (pathname.includes('/taskDB')){
             setTabActive('База заданий')
         }
+        if (pathname.includes('/teacherFinder')){
+            setTabActive('Поиск преподавателей')
+        }
+        if (pathname.includes('/techSupport')){
+            setTabActive('Связь с нами')
+        }
+        if (pathname.includes('/courseConstructor')){
+            setTabActive('Мои курсы')
+        }
     }, [location]);
     return (
         <header className={header.header}>
@@ -31,24 +40,20 @@ const Header = () => {
             </p>
             <section className={header.buttons}>
                 <HeaderTab title = 'Библиотека' isActive={(tabActive === 'Библиотека')} onClick={() => {
-                    setTabActive('Библиотека')
                     nav(`/main/${user.role + '_' + user.userId}`)
                 }}/>
                 <HeaderTab title = 'Мои курсы' isActive={(tabActive === 'Мои курсы')} onClick={() => {
-                    setTabActive('Мои курсы')
                     nav(`/userCourses/${user.role + '_' + user.userId}`)
                 }}/>
-                <HeaderTab title = 'Поиск преподавателей' isActive={(tabActive === 'Поиск преподавателей')} onClick={() => setTabActive('Поиск преподавателей')}/>
+                <HeaderTab title = 'Поиск преподавателей' isActive={(tabActive === 'Поиск преподавателей')} onClick={() => nav('/teacherFinder')}/>
                 <HeaderTab title = 'Профиль' isActive={(tabActive === 'Профиль')} onClick={() => {
-                    setTabActive('Профиль')
-                    nav(`/profile/${user.role + '_' + user.userId}`)
+                    nav(`/profile/${user.role + '_' + user.userId}/${false}`)
                 }}/>
                 <HeaderTab title = 'База заданий' isActive={(tabActive === 'База заданий')} onClick={() => {
-                    setTabActive('База заданий')
-                    nav('/taskDB')
+                    nav('/taskDB/false')
                 }}/>
-                <HeaderTab title = 'Связь с нами' isActive={(tabActive === 'Связь с нами')} onClick={() => setTabActive('Связь с нами')}/>
-                <img src={'http://localhost:8080/siteImages/Settings.svg'} alt={"Настройки"}/>
+                <HeaderTab title = 'Связь с нами' isActive={(tabActive === 'Связь с нами')} onClick={() => nav('/techSupport')}/>
+                {/*<img src={'http://localhost:8080/siteImages/Settings.svg'} alt={"Настройки"}/>*/}
             </section>
         </header>
     );

@@ -1,0 +1,13 @@
+.createCourseBtn{
+    background-color: #3E3BFF;
+    width: 14vw;
+    height: 5vh;
+    color: #FFFFFF;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(26vw / 1920 * 100);
+    border: 0;
+    border-radius: 8px;
+    position: absolute;
+    bottom: 4vh;
+    right: 3vw;
+}

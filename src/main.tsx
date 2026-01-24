@@ -18,6 +18,11 @@ import InfoEditor from "./frontend/Profile/InfoEditor.tsx";
 import TaskDB from "./frontend/taskDB/TaskDB.tsx";
 import UserCourses from "./frontend/UserCourses/UserCourses.tsx";
 import Task from "./frontend/taskDB/Task.tsx";
+import TeacherFinder from "./frontend/TeacherFinder/TeacherFinder.tsx";
+import CourseConstructor from "./frontend/CourseConstructor/CourseConstructor.tsx";
+import TechSupport from "./frontend/TechSupport/TechSupport.tsx";
+import LessonEditor from "./frontend/CourseConstructor/LessonEditor.tsx";
+import OwnTaskEditor from "./frontend/CourseConstructor/OwnTaskEditor.tsx";
 
 const router = createBrowserRouter([
     {path : '/',element : <App/>},
@@ -43,20 +48,35 @@ const router = createBrowserRouter([
                         path: '/course/:courseId/practice/:practiceId', element: <PracticeLesson/>
                     },
                     {
-                        path : '/profile/:userId', element: <Profile/>, children: [
+                        path : '/profile/:userId/:isRedirected', element: <Profile/>, children: [
                             {
-                                path : '/profile/:userId/edit', element: <InfoEditor/>
+                                path : '/profile/:userId/:isRedirected/edit', element: <InfoEditor/>
                             }
                         ]
                     },
                     {
-                        path : '/taskDB', element : <TaskDB/>
+                        path : '/taskDB/:isRedirected', element : <TaskDB/>
                     },
                     {
                         path : '/userCourses/:id', element : <UserCourses/>
                     },
                     {
                         path : '/taskDB/task/:id', element : <Task/>
+                    },
+                    {
+                        path : '/teacherFinder', element : <TeacherFinder/>
+                    },
+                    {
+                        path : '/courseConstructor', element : <CourseConstructor/>,
+                    },
+                    {
+                        path : '/techSupport', element : <TechSupport/>
+                    },
+                    {
+                        path: '/courseConstructor/:moduleName/:numberOfLesson', element: <LessonEditor/>
+                    },
+                    {
+                        path : '/courseConstructor/ownTaskEditor/:moduleName/:numberOfLesson', element : <OwnTaskEditor/>
                     }
                 ]
             }

@@ -1,0 +1,149 @@
+.video{
+    width: 50vw;
+    height: 50vh;
+    margin-bottom: calc(15vh / 1080 * 100);
+}
+.videoBlock{
+    margin-top: 4.26vh;
+    display: flex;
+    flex-direction: column;
+    margin-left: calc(40vw / 1920 * 100);
+}
+.nameBlock{
+    display: flex;
+    flex-direction: column;
+    margin-top: 4.26vh;
+    margin-left: calc(76vw / 1920 * 100);
+}
+.name{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(48vw / 1920 * 100);
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.typeAndTimeBlock{
+    display: flex;
+    flex-direction: row;
+    margin-top: calc(33vw / 1920 * 100);
+}
+.typeOrTimeBlock{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: calc(62vw / 1920 * 100);
+}
+.typeOrTimeImg{
+    width: calc(56vw / 1920 * 100);
+    height: calc(56vh / 1080 * 100);
+    margin-left: 0;
+    margin-top: 0;
+    margin-right: calc(13vw / 1920 * 100);
+}
+.typeOrTimeText{
+    font-family: Montserrat-medium, sans-serif;
+    font-size: calc(36vw / 1920 * 100);
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.timeTextEditor{
+    background-color: #F4F4F4;
+    font-family: Montserrat-medium, sans-serif;
+    font-size: calc(36vw / 1920 * 100);
+    resize: none;
+    box-sizing: border-box;
+    width: calc(120vw / 1920 * 100);
+    vertical-align: middle;
+    height: calc(52vw / 1920 * 100);
+    outline: none;
+    border: 0;
+}
+.infoImg{
+    margin-left: calc(-60vw / 1920 * 100);
+    width: calc(16vw / 1920 * 100);
+    height: calc(16vh / 1080 * 100);
+}
+.infoText{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(13vw / 1920 * 100);
+    margin-left: calc(16vw / 1920 * 100);
+    position: relative;
+    top : calc(-28vh / 1080 * 100);
+    left: calc(-10vw / 1920 * 100);
+}
+.infoBlock{
+    display: flex;
+    flex-direction: column-reverse;
+    margin-top: calc(-36vw / 1920 * 100);
+}
+.linkEditor{
+    resize: none;
+    background-color: #F4F4F4;
+    border: 0;
+    color: #3E3BFF;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(24vw / 1920 * 100);
+    width: calc(50vw - 35vw / 1920 * 100);
+    height: auto;
+}
+.linkImg{
+    width: calc(35vw / 1920 * 100);
+    height: calc(35vh / 1080 * 100);
+    margin-right: calc(50vw - (50vw - 35vw / 1920 * 100) - 35vw / 1920 * 100);
+}
+.materialBlock{
+    display : flex;
+    flex-direction: column;
+}
+.materialTitle{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(36vw / 1920 * 100);
+    margin-top: calc(40vh / 1080 * 100);
+    margin-bottom: calc(32vh / 1080 * 100);
+}
+.materialBtn{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(32vw / 1920 * 100);
+    margin-top: calc(32vh / 1080 * 100);
+    margin-bottom: 0;
+    border: 0;
+    background-color: #FFFFFF;
+    color : #000000;
+    text-align: left;
+}
+.uploadImg{
+    width: calc(50vw / 1920 * 100);
+    height: calc(50vh / 1080 * 100);
+    margin-right: calc(15vw / 1920 * 100);
+}
+.materialName{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(32vw / 1920 * 100);
+    margin-top: 0;
+    margin-bottom: calc(10vh / 1080 * 100);
+    color: #3E3BFF;
+}
+.descBlock{
+    margin-left: calc(167vw / 1920 * 100);
+    margin-top: calc(40vh / 1080 * 100);
+}
+.descTitle{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 36px;
+    margin-top: 0;
+    margin-bottom: calc(22vh / 1080 * 100);
+}
+.descEditImg{
+    width: calc(36vw / 1920 * 100);
+    height: calc(36vh / 1080 * 100);
+    margin-left: calc(32vw / 1920 * 100);
+    margin-bottom: calc(22vh / 1080 * 100);
+}
+.descEdit{
+    width: calc(1165vw / 1920 * 100);
+    height: calc(204vh / 1080 * 100);
+    border: 2px solid #4A4A4A;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(32vw / 1920 * 100);
+    resize: none;
+    border-radius: 8px;
+}

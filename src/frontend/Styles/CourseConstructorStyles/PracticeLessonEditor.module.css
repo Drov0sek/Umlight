@@ -1,0 +1,106 @@
+.title{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(36vw / 1920 * 100);
+    margin-top: calc(32vh / 1080 * 100);
+}
+.mainBlock{
+    display: flex;
+    flex-direction: row;
+}
+.name{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(24vw / 1920 * 100);
+    margin-top: 0;
+    margin-bottom: calc(11vh / 1080 * 100);
+}
+.nameInput{
+    width: calc(433vw / 1920 * 100);
+    height: calc(40vh / 1080 * 100);
+    background-color: #FFFFFF;
+    border: 1px solid #d9d9d9;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(18vw / 1920 * 100);
+    border-radius: calc(14vh / 1080 * 100);
+    padding-left: calc(10vw / 1920 * 100);
+}
+.btnsTitle{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(24vw / 1920 * 100);
+    color: #A2A2A2;
+    margin-bottom: calc(6vh / 1080 * 100);
+}
+.addTaskBtn{
+    margin-top: 0;
+    margin-bottom: calc(16vh / 1080 * 100);
+    height: calc(68vh / 1080 * 100);
+    width: calc(433vw / 1920 * 100);
+    border: 1px solid #d9d9d9;
+    border-radius: calc(20vh / 1080 * 100);
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(16vw / 1920 * 100);
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    gap: calc(15vw / 1920 * 100);
+    padding-left: calc(15vw / 1920 * 100);
+}
+.saveBtn{
+    background-color: #3E3BFF;
+    color: #FFFFFF;
+    width: calc(286vw / 1920 * 100);
+    height: calc(50vh / 1080 * 100);
+    border: 0;
+    border-radius: calc(8vh / 1080 * 100);
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(20vw / 1920 * 100);
+}
+.cancelBtn{
+    background-color: #F4F4F4;
+    color: #9191A1;
+    border: 0;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(20vw / 1920 * 100);
+}
+.tasksBlock{
+    margin-left: calc(78vw / 1920 * 100);
+    width: calc(1250vw / 1920 * 100);
+    height: calc(800vh / 1080 * 100);
+    overflow-y: auto;
+    background-color: #FFFFFF;
+    border: 1px solid #d9d9d9;
+    border-radius: calc(26vh / 1080 * 100);
+    padding-top: calc(32vh / 1080 * 100);
+    padding-left: calc(46vw / 1920 * 100);
+    padding-bottom: calc(32vh / 1080 * 100);
+}
+.tasksBlockTitle{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: calc(15vh / 1080 * 100);
+    margin-left: calc(78vw / 1920 * 100);
+}
+.linkTitle{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(24vw / 1920 * 100);
+    color: black;
+    text-align: center;
+}
+.linkInput{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(18vw / 1920 * 100);
+    height: calc(48vh / 1080 * 100);
+    width: calc(400vw / 1920 * 100);
+    border-radius: calc(8vh / 1080 * 100);
+    color: black;
+}
+.saveLinkTaskBtn{
+    color: #FFFFFF;
+    background-color: #3E3BFF;
+    border: 0;
+    border-radius: calc(8vh / 1080 * 100);
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(20vw / 1920 * 100);
+    height: calc(50vh / 1080 * 100);
+    margin-top: calc(10vh / 1080 * 100);
+}

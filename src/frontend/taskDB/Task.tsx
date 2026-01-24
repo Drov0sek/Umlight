@@ -64,7 +64,7 @@ const Task = () => {
             async function getTask(){
                 if (!id){
                     return
-                } else{
+                } if (id){
                     try{
                         const resp = await fetch(`http://localhost:4200/api/getTaskById/${taskId}`)
                         if (resp.ok){
@@ -111,7 +111,7 @@ const Task = () => {
                 <section className={taskStyle.getAnswer}>
                     <input className={taskStyle.answerInput} type='text' placeholder='Ответ' value={answerValue}
                            onChange={e => setAnswerValue(e.target.value)}/>
-                    <button className={taskStyle.answerButton}onClick={() => {
+                    <button className={taskStyle.answerButton} onClick={() => {
                         if (answerValue.toLowerCase() === task.answer?.toLowerCase()) {
                             alert('Правильно')
                         } else {

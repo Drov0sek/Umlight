@@ -1,11 +1,12 @@
 import { PrismaClient } from '../../../generated/prisma/client'
+import {hashSync} from "bcrypt";
 
 const prisma = new PrismaClient()
 
 async function main() {
     const teacherLogins = await prisma.courses_students.findMany({
     })
-    console.log(teacherLogins)
+    console.log(hashSync('Qwerty123!', 12))
 }
 
 main()

@@ -173,7 +173,7 @@ async function main(){
     })
     app.get('/api/getUserCourses/:id/:role', async (req, res) => {
         try {
-            const result = await getUserInfo.getUserCourses(Number(req.params.id), req.params.role)
+            const result = await getUserInfo.getUserCourseIds(Number(req.params.id), req.params.role)
             res.status(200).json(result)
         } catch (e) {
             console.log(e)
@@ -430,6 +430,33 @@ async function main(){
     app.get('/api/getUserTasksAnswerRightData/:userId/:courseId', async (req, res) => {
         try{
             const result = await getUserInfo.getDonePracticeTasksAnswerRightData(Number(req.params.userId), Number(req.params.courseId))
+            res.status(200).json(result)
+        } catch (e) {
+            console.log(e)
+            res.status(500).json(e)
+        }
+    })
+    app.get('/api/getTeacherStudentsStatsData/:courseId', async (req, res) => {
+        try {
+            const result = await getUserInfo.getTeacherStudentsAverageStats(Number(req.params.courseId))
+            res.status(200).json(result)
+        } catch (e) {
+            console.log(e)
+            res.status(500).json(e)
+        }
+    })
+    app.get('/api/getTeacherCourses/:teacherId', async (req, res) => {
+        try {
+            const result = await getUserInfo.getTeacherCourses(Number(req.params.teacherId))
+            res.status(200).json(result)
+        } catch (e) {
+            console.log(e)
+            res.status(500).json(e)
+        }
+    })
+    app.get('/api/getAllTeachers', async (_req, res) => {
+        try{
+            const result = await getUserInfo.getAllTeachers()
             res.status(200).json(result)
         } catch (e) {
             console.log(e)

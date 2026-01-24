@@ -1,0 +1,67 @@
+.courseTitle{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: 48px;
+    margin-bottom: 7px;
+}
+.courseAuthor{
+    font-family: Montserrat-Regular, sans-serif;
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.courseTitleBlock{
+    display: flex;
+    justify-content: space-between;
+}
+.openedOpenBtn{
+    width: 50px;
+    height: 50px;
+    margin-top: 50px;
+    margin-left: 20px;
+    transform: rotate(0deg);
+    transition: transform 300ms;
+}
+.closedOpenBtn{
+    width: 50px;
+    height: 50px;
+    margin-top: 50px;
+    margin-left: 20px;
+    transform: rotate(-180deg);
+    transition: transform 300ms;
+}
+.statsTitle{
+    font-family: Montserrat-medium, sans-serif;
+    font-size: 48px;
+    margin-top: 57px;
+}
+.statsDiag{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10vh;
+    margin-top: 2vh;
+}
+.taskStatsTitle{
+    font-family: Montserrat-medium, sans-serif;
+    font-size: 48px;
+    margin-top: 0;
+    margin-bottom: 5vh;
+}
+.lessonName{
+    margin-top: 2vh;
+    font-size: 24px;
+    font-family: Montserrat-medium, sans-serif;
+}
+.lessonTasksStatsBlock{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.lessonsTasksStatsBlock{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+.courseTitleAndImgBlock{
+    display: flex;
+    flex-direction: row;
+}

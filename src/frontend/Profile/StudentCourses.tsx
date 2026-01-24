@@ -61,8 +61,10 @@ const StudentCourses = ({userId, role} : PropsType) => {
                     </section>
                     <img onClick={() => setIsOpened(!isOpened)} className={isOpened ? studentCourses.openedOpenBtn : studentCourses.closedOpenBtn} src={'http://localhost:8080/siteImages/Chevron%20down.svg'}/>
                 </section>
-                {renderStats()}
-                {renderTaskStats(coursesData.map(r => r.id).indexOf(e.id))}
+                {isOpened ? <section>
+                    {renderStats()}
+                    {renderTaskStats(coursesData.map(r => r.id).indexOf(e.id))}
+                </section> : <></>}
             </section>
         })
     }

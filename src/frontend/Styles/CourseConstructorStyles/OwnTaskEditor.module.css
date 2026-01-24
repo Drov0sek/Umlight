@@ -1,0 +1,104 @@
+.title{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(32vw / 1920 * 100);
+    margin-top: 0;
+    margin-bottom: 0;
+    color: black;
+}
+.nameBlock{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: calc(27vh / 1080 * 100);
+}
+.editImg{
+    height: calc(27vh / 1080 * 100);
+    width: calc(27vw / 1920 * 100);
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: calc(10vw / 1920 * 100);
+}
+.ownTaskEditorBlock{
+    padding-top: calc(49vh / 1080 * 100);
+    display: flex;
+    flex-direction: row;
+}
+.typeAndTimeBlock{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: calc(52vh / 1080 * 100);
+}
+.textBlock{
+    margin-bottom: calc(55vh / 1920 * 100);
+}
+.textBlock textarea{
+    resize: none;
+    width: calc(643vw / 1920 * 100);
+    height: calc(304vh / 1080 * 100);
+    border: 1px solid #585858;
+    border-radius: calc(10vh / 1080 * 100);
+    margin-top: calc(20vh / 1080 * 100);
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(20vw / 1920 * 100);
+}
+.leftBlock{
+    margin-right: calc(130vw / 1920 * 100);
+}
+.answerBlock{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+.imageBlock{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+.taskImage{
+    max-height: calc(300vh / 1080 * 100);
+    max-width: calc(400vw / 1920 * 100);
+}
+.filesBlock{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+.titleEditor{
+    resize: none;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(32vw / 1920 * 100);
+    width: calc(320vw / 1920 * 100);
+    padding: 0;
+    height: fit-content;
+    vertical-align: middle;
+    outline: none;
+}
+.materialName{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(28vw / 1920 * 100);
+    color: #3E3BFF;
+    max-width: calc(320vw / 1920 * 100);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: calc(10vh / 1080 * 100);
+    margin-bottom: 0;
+}
+.cancelBtn{
+    background-color: white;
+    color: #9191A1;
+    border: 0;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(20vw / 1920 * 100);
+}
+.answerEditor{
+    resize: none;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(32vw / 1920 * 100);
+    width: calc(400vw / 1920 * 100);
+    padding: 0;
+    height: fit-content;
+    vertical-align: middle;
+    outline: none;
+}

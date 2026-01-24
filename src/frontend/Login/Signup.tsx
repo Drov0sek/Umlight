@@ -115,6 +115,9 @@ const Signup = () => {
                     },
                     body : JSON.stringify(teacher)
                 })
+                if (resp.ok){
+                    alert('fvdcsx')
+                }
                 if (!resp.ok){
                     if (resp.status === 409){
                         alert('Ваш логин должен быть уникальным. Попробуйте другой')

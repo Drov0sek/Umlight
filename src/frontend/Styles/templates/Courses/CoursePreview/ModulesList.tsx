@@ -47,7 +47,6 @@ const ModulesList = ({modules,courseId} : PropsType) => {
                         }
 
                         const lessons: LessonType[] = await resp.json();
-                        console.log('lessons:', lessons.map(e => e.numberoflesson),lessons)
                         lessonsData[module.name] = lessons;
                     } catch (e) {
                         console.error(e);
@@ -69,7 +68,7 @@ const ModulesList = ({modules,courseId} : PropsType) => {
         fetchLessons();
     }, [modules]);
     useEffect(() => {
-        console.log('moduleLessons: ',lessonsByModule)
+        console.log('moduleLessons: ',lessonsByModule['Введение'])
     }, [lessonsByModule]);
 
     if (loading) return <div>Загрузка уроков...</div>;

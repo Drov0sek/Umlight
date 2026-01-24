@@ -4,6 +4,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 type PropsType = {
     userId : number,
     role : string,
+    isRedirected : string
 }
 type StudentType = {
     id: number,
@@ -31,7 +32,7 @@ type TeacherType = {
     age: number | null
 }
 
-const UserInfo = ({userId, role} : PropsType) => {
+const UserInfo = ({userId, role, isRedirected} : PropsType) => {
     const nav = useNavigate()
     const [student, setStudent] = useState<StudentType>({
         age: null,
@@ -166,26 +167,35 @@ const UserInfo = ({userId, role} : PropsType) => {
                     </section>
                 </section>
                 <section>
-                    <section>
-                        <p>Информация</p>
-                        <img src={'http://localhost:8080/siteImages/Edit.svg'} alt={'Изменить информацию'}/>
+                    <section className={userInfoStyle.titleChanger}>
+                        <p className={userInfoStyle.title}>Информация</p>
+                        {isRedirected === 'false' ?
+                            <img className={userInfoStyle.titleImage} src={'http://localhost:8080/siteImages/Edit.svg'}
+                                 onClick={() => nav(`/profile/${role}_${userId}/${isRedirected}/edit`)} alt={'Изменить информацию'}/>
+                        : <></>}
                     </section>
-                    <section>
-                        <p>{teacher?.surname} {teacher?.name}</p>
-                        <p>Фамилия имя</p>
-                    </section>
-                    <section>
-                        <p>{teacher?.age} лет</p>
-                        <p>Возраст</p>
-                    </section>
-                    <section>
-                        <p>{teacher?.description}</p>
-                        <p>Описание</p>
+                    <section className={userInfoStyle.infoBlock}>
+                        <section>
+                            <p className={userInfoStyle.info}>Учитель</p>
+                            <p className={userInfoStyle.underHeading}>Тип аккаунта</p>
+                        </section>
+                        <section>
+                            <p className={userInfoStyle.info}>{teacher?.surname} {teacher?.name}</p>
+                            <p className={userInfoStyle.underHeading}>Фамилия имя</p>
+                        </section>
+                        <section>
+                            <p className={userInfoStyle.info}>{teacher?.age} лет</p>
+                            <p className={userInfoStyle.underHeading}>Возраст</p>
+                        </section>
+                        <section>
+                            <p className={userInfoStyle.info}>{teacher?.description}</p>
+                            <p className={userInfoStyle.underHeading}>Описание</p>
+                        </section>
                     </section>
                 </section>
             </section>
         );
-    } else{
+    } else {
         return (
             <section className={userInfoStyle.userInfo}>
                 <section className={userInfoStyle.nameAndImage}>
@@ -200,8 +210,10 @@ const UserInfo = ({userId, role} : PropsType) => {
                 <section className={userInfoStyle.infoTitle}>
                     <section className={userInfoStyle.titleChanger}>
                         <p className={userInfoStyle.title}>Информация</p>
-                        <img className={userInfoStyle.titleImage} src={'http://localhost:8080/siteImages/Edit.svg'}
-                             alt={'Изменить информацию'} onClick={() => nav(`/profile/${role}_${userId}/edit`)}/>
+                        {isRedirected === 'false' ?
+                            <img className={userInfoStyle.titleImage} src={'http://localhost:8080/siteImages/Edit.svg'}
+                                 onClick={() => nav(`/profile/${role}_${userId}/${isRedirected}/edit`)} alt={'Изменить информацию'}/>
+                            : <></>}
                     </section>
                     <p className={userInfoStyle.infoError}>{hasFullInfo() ? '' : 'Необходима дополнительная информация!'}</p>
                 </section>
