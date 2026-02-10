@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import styles from '../Modal.module.css'; // Подключаем CSS-модуль
+import styles from '../Modal.module.css';
 
 type ModalProps = {
     isOpen: boolean;
@@ -18,8 +18,6 @@ export const Modal = ({
                           actions,
                       }: ModalProps) => {
     const modalRef = useRef<HTMLDivElement>(null)
-
-    // Блокировка скролла при открытии
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = "hidden";
@@ -39,18 +37,13 @@ export const Modal = ({
     return createPortal(
         <div className={styles.overlay} onClick={handleOverlayClick}>
             <div ref={modalRef} className={styles.modal}>
-                {/* Заголовок и кнопка закрытия */}
                 <div className={styles.header}>
                     <h3 className={styles.title}>{title}</h3>
                     <button onClick={onClose} className={styles.closeButton}>
                         ✕
                     </button>
                 </div>
-
-                {/* Контент */}
                 <div className={styles.content}>{children}</div>
-
-                {/* Кастомные действия (кнопки и т.д.) */}
                 {actions && <div className={styles.actions}>{actions}</div>}
             </div>
         </div>,

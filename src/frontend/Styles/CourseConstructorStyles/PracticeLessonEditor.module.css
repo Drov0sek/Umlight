@@ -1,7 +1,14 @@
 .title{
     font-family: Montserrat-bold, sans-serif;
     font-size: calc(36vw / 1920 * 100);
-    margin-top: calc(32vh / 1080 * 100);
+    margin-left: calc(50vw / 1920 * 100);
+}
+.practiceLessonBlock{
+    padding-top: calc(2vh / 1080 * 100);
+    background-color: #F4F4F4;
+    width: 100vw;
+    height: 95vh;
+    overflow-y: auto;
 }
 .mainBlock{
     display: flex;

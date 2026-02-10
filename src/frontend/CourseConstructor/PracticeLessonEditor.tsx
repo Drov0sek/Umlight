@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import practiceLessonEditor from '../Styles/CourseConstructorStyles/PracticeLessonEditor.module.css'
 import {useNavigate} from "react-router-dom";
-import {setCurrentLesson, addOwnLessonTask} from "../store/slices/editLessonsReducer.ts";
+import {setCurrentLesson, addOwnLessonTask, setLesson} from "../store/slices/editLessonsReducer.ts";
 import {useDispatch, useSelector} from "react-redux";
 import type {RootState} from "../store/store.ts";
 import PublicTaskPreview from "./PublicTaskPreview.tsx";
@@ -32,11 +32,25 @@ type PracticeLessonOwnTaskType = {
     time : number,
     materials : File[]
 }
+type ModuleLessonType = {
+    moduleName : string,
+    lesson : ReduxLessonType
+}
+type ReduxLessonType = {
+    name : string,
+    type : string,
+    description : string,
+    video : string,
+    time : number,
+    numberoflesson : number,
+}
 
 const PracticeLessonEditor = (props : LessonType) => {
     const nav = useNavigate()
     const [name, setName] = useState(props.name)
     const dispatch = useDispatch()
+    const [time, setTime] = useState(props.time)
+    const [type, setType] = useState(props.type)
     const publicTasks = useSelector((state : RootState) => state.editLessonsReducer.lessonPublicTasks.filter(e => e.numberOfLesson === props.numberoflesson && e.moduleName === props.moduleName))
     const ownTasks = useSelector((state : RootState) => state.editLessonsReducer.lessonOwnTasks.filter(e => e.numberOfLesson === props.numberoflesson && e.moduleName === props.moduleName))
     const [isFormOpened, setIsFormOpened] = useState(false)
@@ -55,9 +69,24 @@ const PracticeLessonEditor = (props : LessonType) => {
         }
         dispatch(setCurrentLesson(currentLessonObJ))
     }, [props.numberoflesson, props.moduleName, dispatch]);
+    useEffect(() => {
+        const lessonObj : ModuleLessonType = {
+            moduleName : props.moduleName,
+            lesson : {
+                name : props.name,
+                type : type,
+                time : time,
+                description : '',
+                video : '',
+                numberoflesson : props.numberoflesson
+            }
+        }
+        console.log(lessonObj)
+        dispatch(setLesson(lessonObj))
+    }, [dispatch, props.moduleName, props.name, props.numberoflesson, time, type]);
 
     return (
-        <section style={{backgroundColor : '#f4f4f4',}}>
+        <section className={practiceLessonEditor.practiceLessonBlock}>
             <Modal isOpen={isFormOpened} onClose={() => setIsFormOpened(false)} children={
                 <section style={{display : 'flex', flexDirection : 'column', alignItems : 'center'}}>
                     <section>
@@ -92,12 +121,21 @@ const PracticeLessonEditor = (props : LessonType) => {
             }/>
             <p className={practiceLessonEditor.title}>Новое практическое занятие</p>
             <section className={practiceLessonEditor.mainBlock}>
-            <section style={{marginLeft: '2.6vw'}}>
+                <section style={{marginLeft: '2.6vw'}}>
                     <section>
                         <p className={practiceLessonEditor.name}>Название занятия</p>
                         <input className={practiceLessonEditor.nameInput} type='text' value={name}
                                onChange={(e) => setName(e.target.value)}/>
                     </section>
+                    <button style={{marginTop: '3vh'}} className={practiceLessonEditor.saveBtn}
+                            onClick={() => setType('Теория')}>Сменить тип
+                    </button>
+                    <p style={{marginTop: '3vh'}} className={practiceLessonEditor.name}>Введите время занятия</p>
+                    <input className={practiceLessonEditor.nameInput} type='text' value={time}
+                           onChange={(e) => {
+                               if (!isNaN(Number(e.target.value))){
+                                   setTime(Number(e.target.value))
+                           }}}/>
                     <section>
                         <section style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                             <p className={practiceLessonEditor.btnsTitle}>Занятия</p>
@@ -112,11 +150,13 @@ const PracticeLessonEditor = (props : LessonType) => {
                                 {<img src={'http://localhost:8080/siteImages/btnLink.svg'}/>}
                                 Ссылка на задание
                             </button>
-                            <button className={practiceLessonEditor.addTaskBtn}>
+                            <button className={practiceLessonEditor.addTaskBtn}
+                                    onClick={() => nav('/courseConstructor/randomTasksGetter')}>
                                 {<img src={'http://localhost:8080/siteImages/Create.svg'}/>}
-                                Добавить случайное задание из базы заданий
+                                Собрать через конструктор
                             </button>
-                            <button className={practiceLessonEditor.addTaskBtn} onClick={() => setIsTaskEditorOpened(true)}>
+                            <button className={practiceLessonEditor.addTaskBtn}
+                                    onClick={() => setIsTaskEditorOpened(true)}>
                                 {<img src={'http://localhost:8080/siteImages/Add.svg'}/>}
                                 Создать задание с нуля
                             </button>
@@ -125,10 +165,10 @@ const PracticeLessonEditor = (props : LessonType) => {
                     <section style={{
                         display: 'flex',
                         flexDirection: 'row',
-                        marginTop: '29vh',
+                        marginTop: '8vh',
                         justifyContent: 'space-between'
                     }}>
-                        <button className={practiceLessonEditor.saveBtn}>Сохранить подборку</button>
+                        <button className={practiceLessonEditor.saveBtn} onClick={() => nav('/courseConstructor')}>Сохранить подборку</button>
                         <button className={practiceLessonEditor.cancelBtn}>Отменить</button>
                     </section>
                 </section>

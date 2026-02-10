@@ -70,7 +70,7 @@ const PublicTaskPreview = ({taskId, numberOfLesson, moduleName} : PropsType) => 
                                 <p>{task?.time} минут</p>
                             </section>
                             <section className={publicTaskPreview.timeOrTypeBlock}>
-                                <img src={'http://localhost:8080/siteImages/List.svg'} alt="Тип"/>
+                                <img className={publicTaskPreview.image} src={'http://localhost:8080/siteImages/List.svg'} alt="Тип"/>
                                 <p>{task?.type}</p>
                             </section>
                         </section>
@@ -90,7 +90,6 @@ const PublicTaskPreview = ({taskId, numberOfLesson, moduleName} : PropsType) => 
                     moduleName : moduleName,
                     publicTaskId : taskId
                 }
-                alert('tybgfdsc')
                 console.log('tsd: ', taskObj)
                 dispatch(deleteLessonPublicTask(taskObj))
             }}>

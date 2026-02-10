@@ -12,7 +12,6 @@ const ProgressCircle = ({percent, size = 200, strokeWidth = 12, sign}: ProgressC
 
     return (
         <svg width={size} height={size}>
-            {/* Фон */}
             <circle
                 cx={size / 2}
                 cy={size / 2}
@@ -21,8 +20,6 @@ const ProgressCircle = ({percent, size = 200, strokeWidth = 12, sign}: ProgressC
                 strokeWidth={strokeWidth}
                 fill="none"
             />
-
-            {/* Прогресс */}
             <circle
                 cx={size / 2}
                 cy={size / 2}
@@ -36,8 +33,6 @@ const ProgressCircle = ({percent, size = 200, strokeWidth = 12, sign}: ProgressC
                 transform={`rotate(-90 ${size / 2} ${size / 2})`}
                 style={{ transition: "stroke-dashoffset 0.4s ease" }}
             />
-
-            {/* Текст */}
             <text
                 x="50%"
                 y="45%"
@@ -49,7 +44,6 @@ const ProgressCircle = ({percent, size = 200, strokeWidth = 12, sign}: ProgressC
             >
                 {percent}%
             </text>
-
             <text
                 x="50%"
                 y="60%"

@@ -1,6 +1,7 @@
 // import Header from "./Header.tsx";
 import CourseCard from "../Styles/templates/Courses/CourseCard.tsx";
 import {useEffect, useState} from "react";
+import userCourses from "../Styles/UserCoursesStyles/UserCourses.module.css";
 
 const Main = () => {
     const [courseIds, setCourseIds] = useState<number[]>([])
@@ -24,7 +25,7 @@ const Main = () => {
         getCourseIds()
     }, []);
     function renderCourses() {
-        return <section>
+        return <section className={userCourses.userCoursesBlock}>
             {courseIds.map(e => <div>
                 <CourseCard courseId={e}/>
             </div>)}

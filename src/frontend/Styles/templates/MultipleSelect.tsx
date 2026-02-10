@@ -53,7 +53,17 @@ const MultipleSelect = ({sentOptions, options, changer} : PropsType) => {
                     }}
                     checked={currentOptions ? currentOptions.includes(e) : false}
                 />
-                <p className={multipleSelect.option}>{e}</p>
+                <p onClick={() => {
+                    if (currentOptions && currentOptions.includes(e)) {
+                        const newOptions = currentOptions.filter(r => r !== e)
+                        setCurrentOptions(newOptions)
+                        changer(newOptions)
+                    } else {
+                        const newOptions = [...(currentOptions), e]
+                        setCurrentOptions(newOptions)
+                        changer(newOptions)
+                    }
+                }} className={multipleSelect.option}>{e}</p>
             </div>
         ))
     }

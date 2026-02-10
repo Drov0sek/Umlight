@@ -8,6 +8,7 @@
 }
 .selectedTab{
     border-bottom: calc(4vh / 1080 * 100) solid black;
+    cursor: pointer;
 }
 @font-face {
     font-family: "Montserrat";

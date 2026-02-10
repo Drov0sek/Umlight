@@ -30,27 +30,19 @@ async function getModuleIdByName(moduleName: string, courseId: number) {
 export class GetCourseParts {
     async getModuleLessons(courseId: number, moduleName: string) {
         const moduleId = await getModuleIdByName(moduleName, courseId);
-
-        // достаём id всех уроков из таблицы modules_lessons
         const lessonIds = await prisma.modules_lessons.findMany({
             where: { moduleid: moduleId },
             select: { lessonid: true }
         }).then(r => r.map(e => e.lessonid));
 
-        console.log('Module:', moduleName, 'ModuleID:', moduleId, 'LessonIDs:', lessonIds);
-
         if (lessonIds.length === 0) {
-            console.warn('⚠️ Нет уроков для модуля', moduleName);
+            console.warn('Нет уроков для модуля', moduleName);
             return [];
         }
-
-        // достаём уроки
         const lessons = await prisma.lesson.findMany({
             where: { id: { in: lessonIds } },
             orderBy: { numberoflesson: 'asc' }
         });
-
-        console.log('Lessons found:', lessons.length);
         return lessons;
     }
 

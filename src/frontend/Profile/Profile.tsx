@@ -4,7 +4,6 @@ import {Outlet, useParams} from "react-router";
 import TimeChecker from "./TimeChecker.tsx";
 import EgeStats from "./EgeStats.tsx";
 import StudentCourses from "./StudentCourses.tsx";
-import {useNavigate} from "react-router-dom";
 import TeacherCourses from "./TeacherCourses.tsx";
 import {useEffect} from "react";
 import {useSession} from "../customHooks/useSession.ts";
@@ -20,22 +19,6 @@ const Profile = () => {
     const user : UserType = {
         userId : userId ? Number(userId.split('_')[1]) : 0,
         role : userId ? userId.split('_')[0] : ''
-    }
-    const nav = useNavigate()
-
-    async function logout(){
-        try {
-            const resp = await fetch('http://localhost:4200/api/logout', {
-                method : 'POST',
-                credentials : 'include'
-            })
-            if (!resp.ok){
-                throw new Error()
-            }
-        } catch (e) {
-            console.log(e)
-            alert('Разлогирование произошло безуспешно. Попробуйте ещё раз позже')
-        }
     }
 
     useEffect(() => {
@@ -59,10 +42,6 @@ const Profile = () => {
                         {user.role === 'student' ? <StudentCourses userId={user.userId} role={user.role}/> : <TeacherCourses userId={user.userId} role={user.role}/>}
                     </section>
                 </section>
-                <button onClick={async () => {
-                    await logout()
-                    nav('/')
-                }}>Выйти</button>
                 <Outlet/>
             </section> : <></>)}
         </main>

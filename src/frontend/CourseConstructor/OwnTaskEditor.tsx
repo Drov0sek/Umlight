@@ -40,7 +40,7 @@ const OwnTaskEditor = () => {
         const file = files[0]
         if (!file.type.startsWith('image/')) {
             alert('Можно загрузить только изображение')
-            e.target.value = '' // сброс input
+            e.target.value = ''
             return
         }
         setImage(file)
@@ -90,25 +90,19 @@ const OwnTaskEditor = () => {
             <section className={ownTaskEditor.ownTaskEditorBlock}>
                 <section className={ownTaskEditor.leftBlock}>
                     <section className={ownTaskEditor.nameBlock}>
-                        {isNameEditing ? <textarea rows={1} className={ownTaskEditor.titleEditor} value={name}
-                                                   onChange={(e) => setName(e.target.value)}/> :
+                        {isNameEditing ? <textarea rows={1} className={ownTaskEditor.titleEditor} value={name} onChange={(e) => setName(e.target.value)}/> :
                             <p className={ownTaskEditor.title}>{name === '' ? 'Название задания' : name}</p>}
-                        <img onClick={() => setIsNameEditing(!isNameEditing)} className={ownTaskEditor.editImg}
-                             src={'http://localhost:8080/siteImages/Edit.svg'}/>
+                        <img onClick={() => setIsNameEditing(!isNameEditing)} className={ownTaskEditor.editImg} src={'http://localhost:8080/siteImages/Edit.svg'}/>
                     </section>
                     <section className={ownTaskEditor.typeAndTimeBlock}>
                         <section style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                             {isTimeAndTypeEditing ?
-                                <textarea rows={1} className={ownTaskEditor.titleEditor} value={isNaN(time) ? '' : time}
-                                          onChange={(e) => setTime(Number(e.target.value))}/>
-                                :
+                                <textarea rows={1} className={ownTaskEditor.titleEditor} value={isNaN(time) ? '' : time} onChange={(e) => setTime(Number(e.target.value))}/> :
                                 <p className={ownTaskEditor.title}>{time === 0 ? 'Тип задания' : time}</p>
                             }
                             <p className={ownTaskEditor.title}> | </p>
                             {isTimeAndTypeEditing ?
-                                <textarea rows={1} className={ownTaskEditor.titleEditor} value={type}
-                                          onChange={(e) => setType(e.target.value)}/>
-                                :
+                                <textarea rows={1} className={ownTaskEditor.titleEditor} value={type} onChange={(e) => setType(e.target.value)}/> :
                                 <p className={ownTaskEditor.title}>{type === '' ? 'Время выполнения' : type}</p>
                             }
                         </section>
@@ -134,21 +128,12 @@ const OwnTaskEditor = () => {
                     <section>
                         <section className={ownTaskEditor.imageBlock}>
                             <p className={ownTaskEditor.title}>Фото задания</p>
-                            <img onClick={() => imageInputRef.current?.click()} className={ownTaskEditor.editImg}
-                                 src={'http://localhost:8080/siteImages/BlueDownload.svg'}/>
-                            <input
-                                type="file"
-                                accept="image/*"
-                                hidden
-                                ref={imageInputRef}
-                                onChange={uploadImage}
+                            <img onClick={() => imageInputRef.current?.click()} className={ownTaskEditor.editImg} src={'http://localhost:8080/siteImages/BlueDownload.svg'}/>
+                            <input type="file" accept="image/*" hidden ref={imageInputRef} onChange={uploadImage}
                             />
                         </section>
                         {imagePreview && (
-                            <img className={ownTaskEditor.taskImage}
-                                 src={imagePreview}
-                                 alt="Превью задания"
-                                 style={{maxWidth: '100%', marginTop: '8px'}}
+                            <img className={ownTaskEditor.taskImage} src={imagePreview} alt="Превью задания" style={{maxWidth: '100%', marginTop: '8px'}}
                             />
                         )}
                     </section>
@@ -157,23 +142,16 @@ const OwnTaskEditor = () => {
                             <p className={ownTaskEditor.title}>Файлы для задания</p>
                             <img onClick={() => materialInputRef.current?.click()} className={ownTaskEditor.editImg}
                                  src={'http://localhost:8080/siteImages/BlueDownload.svg'}/>
-                            <input
-                                type="file"
-                                hidden
-                                ref={materialInputRef}
-                                onChange={uploadMaterial}
+                            <input type="file" hidden ref={materialInputRef} onChange={uploadMaterial}
                             />
                         </section>
                         {getMaterialNames()}
                     </section>
                 </section>
             </section>
-            <section style={{
-                display: 'flex',
-                flexDirection: 'row',
-                marginTop: '3vh',
+            <section style={{display: 'flex', flexDirection: 'row', marginTop: '3vh',
             }}>
-                <button className={practiceLessonEditor.saveBtn} style={{marginRight : '2vw'}} onClick={() => saveTask()}>Сохранить подборку</button>
+                <button className={practiceLessonEditor.saveBtn} style={{marginRight : '2vw'}} onClick={() => saveTask()}>Сохранить в занятие</button>
                 <button className={ownTaskEditor.cancelBtn}>Отменить</button>
             </section>
         </main>

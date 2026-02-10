@@ -28,6 +28,7 @@
     top: 5px;
     margin-left: 2vh;
     transition: transform 300ms;
+    cursor: pointer;
 }
 .unfolderClosed{
     width: 40px;
@@ -37,6 +38,7 @@
     margin-left: 2vh;
     transform: rotate(-180deg);
     transition: transform 300ms;
+    cursor: pointer;
 }
 .module p{
     margin: 0;
@@ -53,6 +55,7 @@
     width: 50%;
     margin-left: 25%;
     border: 1px solid black;
+    cursor: pointer;
 }
 .lessonClosed{
     display: none;

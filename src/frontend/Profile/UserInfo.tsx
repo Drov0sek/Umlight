@@ -33,7 +33,6 @@ type TeacherType = {
 }
 
 const UserInfo = ({userId, role, isRedirected} : PropsType) => {
-    const nav = useNavigate()
     const [student, setStudent] = useState<StudentType>({
         age: null,
         description: "",
@@ -61,6 +60,22 @@ const UserInfo = ({userId, role, isRedirected} : PropsType) => {
     })
     const {state} = useLocation()
     const [userSubjects, setUserSubjects] = useState<string[]>([])
+    const nav = useNavigate()
+
+    async function logout(){
+        try {
+            const resp = await fetch('http://localhost:4200/api/logout', {
+                method : 'POST',
+                credentials : 'include'
+            })
+            if (!resp.ok){
+                throw new Error()
+            }
+        } catch (e) {
+            console.log(e)
+            alert('Разлогирование произошло безуспешно. Попробуйте ещё раз позже')
+        }
+    }
 
     useEffect(() => {
         async function getUserInfo(){
@@ -162,17 +177,25 @@ const UserInfo = ({userId, role, isRedirected} : PropsType) => {
                     <section>
                         <img className={userInfoStyle.image} src={teacher?.image !== null ? teacher?.image : 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTiIYEVBeDnTWCRgMuGkoSrsGddu-4tDkNL_jxjwYhaCDkOWmgaxvY2yF55HqpLEJajNv-a-zwyN83Q5HNC0TEC717EY4EMeGAFcpmrs1sGjyoNATVzEX9r'}/>
                     </section>
-                    <section>
+                    <section style={{display : 'flex', flexDirection : 'row'}}>
                         <p className={userInfoStyle.name}>{teacher?.name}</p>
                     </section>
                 </section>
                 <section>
                     <section className={userInfoStyle.titleChanger}>
-                        <p className={userInfoStyle.title}>Информация</p>
-                        {isRedirected === 'false' ?
-                            <img className={userInfoStyle.titleImage} src={'http://localhost:8080/siteImages/Edit.svg'}
-                                 onClick={() => nav(`/profile/${role}_${userId}/${isRedirected}/edit`)} alt={'Изменить информацию'}/>
-                        : <></>}
+                        <section style={{display : 'flex', flexDirection : 'row'}}>
+                            <p className={userInfoStyle.title}>Информация</p>
+                            {isRedirected === 'false' ?
+                                <img className={userInfoStyle.titleImage} src={'http://localhost:8080/siteImages/Edit.svg'}
+                                     onClick={() => nav(`/profile/${role}_${userId}/${isRedirected}/edit`)}
+                                     alt={'Изменить информацию'}/>
+                                : <></>}
+                        </section>
+                        <button onClick={async () => {
+                            await logout()
+                            nav('/')
+                        }}>Выйти
+                        </button>
                     </section>
                     <section className={userInfoStyle.infoBlock}>
                         <section>
@@ -212,10 +235,16 @@ const UserInfo = ({userId, role, isRedirected} : PropsType) => {
                         <p className={userInfoStyle.title}>Информация</p>
                         {isRedirected === 'false' ?
                             <img className={userInfoStyle.titleImage} src={'http://localhost:8080/siteImages/Edit.svg'}
-                                 onClick={() => nav(`/profile/${role}_${userId}/${isRedirected}/edit`)} alt={'Изменить информацию'}/>
+                                 onClick={() => nav(`/profile/${role}_${userId}/${isRedirected}/edit`)}
+                                 alt={'Изменить информацию'}/>
                             : <></>}
                     </section>
                     <p className={userInfoStyle.infoError}>{hasFullInfo() ? '' : 'Необходима дополнительная информация!'}</p>
+                    <button onClick={async () => {
+                        await logout()
+                        nav('/')
+                    }}>Выйти
+                    </button>
                 </section>
                 <section className={userInfoStyle.infoBlock}>
                     <section>

@@ -27,19 +27,17 @@ const OwnTaskPreview = (task : PracticeLessonOwnTaskType) => {
     return (
         <section>
             <section className={publicTaskPreview.taskBlock}>
-                <section>
+                <section style={{display : 'flex', flexDirection : 'row', alignItems : 'self-start', justifyContent : 'space-between'}}>
                     <section>
                         <p className={publicTaskPreview.title}>Безымянное занятие</p>
                         <p className={publicTaskPreview.taskText}>{task?.taskText}</p>
                     </section>
-                    {imagePreview ? <img src={imagePreview}/> : <></>}
+                    <section>
+                        {task.image.name !== '' ? <img className={publicTaskPreview.image} src={imagePreview}/> : <></>}
+                        {task.materials.map(e => <p className={publicTaskPreview.material}>{e.name}</p>)}
+                    </section>
                 </section>
-                <section style={{
-                    display: 'flex',
-                    flexDirection: 'row-reverse',
-                    alignItems: 'self-start',
-                    justifyContent: 'flex-end'
-                }}>
+                <section style={{display: 'flex', flexDirection: 'row-reverse', alignItems: 'self-start', justifyContent: 'flex-end'}}>
                     <button onClick={() => setIsAnswerOpened(!isAnswerOpened)}
                             className={publicTaskPreview.showAnswerBtn}>Показать ответ
                     </button>

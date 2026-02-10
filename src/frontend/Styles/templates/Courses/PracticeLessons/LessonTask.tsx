@@ -31,7 +31,7 @@ const LessonTask = (props : PropsType) => {
                 </section>
             </section>
             <section className={lessonTask.taskImgAndMaterials}>
-                {props.image != '' ? <img src={props.image}/> : <></>}
+                {props.image != '' ? <img src={props.image} alt={'Здесь должна была быть картинка'}/> : <></>}
             </section>
         </section>
     );

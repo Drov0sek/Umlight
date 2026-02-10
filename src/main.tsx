@@ -22,7 +22,7 @@ import TeacherFinder from "./frontend/TeacherFinder/TeacherFinder.tsx";
 import CourseConstructor from "./frontend/CourseConstructor/CourseConstructor.tsx";
 import TechSupport from "./frontend/TechSupport/TechSupport.tsx";
 import LessonEditor from "./frontend/CourseConstructor/LessonEditor.tsx";
-import OwnTaskEditor from "./frontend/CourseConstructor/OwnTaskEditor.tsx";
+import RandomTasksGetter from "./frontend/CourseConstructor/RandomTasksGetter.tsx";
 
 const router = createBrowserRouter([
     {path : '/',element : <App/>},
@@ -76,7 +76,7 @@ const router = createBrowserRouter([
                         path: '/courseConstructor/:moduleName/:numberOfLesson', element: <LessonEditor/>
                     },
                     {
-                        path : '/courseConstructor/ownTaskEditor/:moduleName/:numberOfLesson', element : <OwnTaskEditor/>
+                        path : '/courseConstructor/randomTasksGetter', element : <RandomTasksGetter/>
                     }
                 ]
             }

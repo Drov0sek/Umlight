@@ -113,7 +113,7 @@ model materials {
 }
 
 model modules {
-  id              Int               @id
+  id              Int               @id @default(autoincrement())
   name            String
   numberofmodule  Int
   courses_modules courses_modules[]
@@ -136,7 +136,7 @@ model courses_students {
 }
 
 model lesson_tasks {
-  id                Int                 @id
+  id                Int                 @id @default(autoincrement())
   text              String
   image             String?
   answer            String

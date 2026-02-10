@@ -46,10 +46,8 @@ const PracticeLesson = () => {
         setCompletedTasks(prev => {
             const idx = prev.findIndex(e => e.numberOfTask === taskNumber);
             if (idx === -1) {
-                // добавляем новый
                 return [...prev, { numberOfTask: taskNumber, answer }];
             } else {
-                // заменяем существующий элемент (без мутаций)
                 return prev.map((e, i) => i === idx ? { numberOfTask: taskNumber, answer } : e);
             }
         });
@@ -116,7 +114,7 @@ const PracticeLesson = () => {
         getLesson()
         async function getLessonTasks(){
             try {
-                const resp = await fetch(`http://localhost:4200/api/getPracticeLessonTasks/${2}`)
+                const resp = await fetch(`http://localhost:4200/api/getPracticeLessonTasks/${lessonId}`)
                 if (resp.ok){
                     const lessonTasksData: LessonTask[] = await resp.json()
                     setLessonTasks(lessonTasksData)
@@ -151,8 +149,8 @@ const PracticeLesson = () => {
                 </section>
             </LessonTask>
             <section className={practiceLessonStyle.bottom}>
-                <TaskStats tasks={lessonTasks} numOfTask={currentTaskNumber} completedTasks={completedTaskNumbers}
-                           setCurrentTask={setCurrentTask} rightTasks={rightTasks} checkAnswers={checkAnswers} lessonId={practiceLesson.id}/>
+                <TaskStats tasks={lessonTasks} numOfTask={currentTaskNumber} completedTasks={completedTaskNumbers} 
+                           setCurrentTask={setCurrentTask} rightTasks={rightTasks} checkAnswers={checkAnswers} lessonId={practiceLesson.id !== null ? practiceLesson.id : 0}/>
                 <PracticeLessonDesc description={practiceLesson.description}/>
             </section>
         </main>

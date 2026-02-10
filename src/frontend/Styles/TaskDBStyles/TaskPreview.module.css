@@ -1,5 +1,5 @@
 .preview{
-
+    cursor: pointer;
 }
 .idAndType{
     display: flex;

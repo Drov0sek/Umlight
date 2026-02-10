@@ -39,9 +39,6 @@ const UserCourses = () => {
             {courseIds.map(e => <div>
                 <CourseCard courseId={e}/>
             </div>)}
-            {courseIds.map(e => <div>
-                <CourseCard courseId={e}/>
-            </div>)}
         </section>
     }
     return (

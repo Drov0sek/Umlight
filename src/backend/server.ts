@@ -18,6 +18,8 @@ import { PasswordTooWeakError } from './errors/PasswordTooWeakError.js';
 import { HasAlreadyJoinedError } from './errors/HasAlreadyJoinedError.js';
 import * as http from 'node:http';
 import {SetUserInfo} from "./userInfo/setUserInfo.js";
+import multer from "multer";
+import createCourseRouter from "./CreateCourse/createCourseRouter.js";
 
 dotenv.config();
 
@@ -29,6 +31,16 @@ declare module "express-session" {
 }
 
 const app = express();
+const stirage = multer.diskStorage({
+    destination : (req, file, callback) => {
+        callback(null, 'C://projects/courseMaterials')
+    }
+})
+const upload = multer({
+    dest: "uploads/",
+});
+
+
 const allowedOrigins = process.env.FRONTEND_ORIGIN?.split(",") ?? [];
 
 app.use(cors({
@@ -53,10 +65,9 @@ const getTasksInfo = new GetTasksInfo();
 const getCourseParts = new GetCourseParts();
 const courseInteraction = new CourseInteraction();
 const setUserInfo = new SetUserInfo()
-
-// CommonJS-safe __dirname
 const __dirname = path.resolve();
 
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(session({
     store: new PgSession({ pool: pgPool, tableName: "user_sessions", createTableIfMissing: true }),
     secret: process.env.SESSION_SECRET!,
@@ -183,8 +194,6 @@ async function main(){
     app.get('/api/getLessons/:moduleName/:courseId',async (req,res) => {
         try{
             const result = await getCourseParts.getModuleLessons(Number(req.params.courseId),req.params.moduleName)
-            console.log(result)
-            console.log('rfgd')
             res.status(200).json(result)
         } catch (e) {
             res.status(500).json(e)
@@ -463,8 +472,10 @@ async function main(){
             res.status(500).json(e)
         }
     })
+    app.use(
+        '/api', createCourseRouter);
+    app.use(express.static(path.join(__dirname, "../client")));
     app.use((req, res, next) => {
-        // Если путь начинается с /api, пропускаем
         if (req.path.startsWith('/api')) return next();
 
         res.sendFile(
@@ -486,13 +497,9 @@ server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     console.log('DATABASE_URL =', process.env.DATABASE_URL);
 });
-
-// Обработка ошибок при запуске сервера
 server.on('error', (error) => {
     console.error('Server error:', error);
 });
-
-// Обработка сигналов завершения
 process.on('SIGINT', () => {
     console.log('Сервер остановлен');
     server.close(() => {

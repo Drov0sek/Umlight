@@ -32,6 +32,7 @@
     padding-left: 1.3vw;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 .suggestedModuleText{
     color: #A2A2A2;
@@ -49,6 +50,7 @@
     align-items: center;
     border: 1px solid #585858;
     background-color: #F4F4F4;
+    cursor: pointer;
 }
 .suggestedLessonText{
     color: #A2A2A2;
@@ -64,6 +66,7 @@
     padding-left: 1.3vw;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 .actualModuleText{
     color: #000000;
@@ -82,6 +85,7 @@
     border: 1px solid #000000;
     background-color: #F4F4F4;
     justify-content: space-between;
+    cursor: pointer;
 }
 .actualLessonText{
     color: #000000;
@@ -176,4 +180,46 @@
     border: 1px solid #585858;
     border-radius: 10px;
     overflow-wrap: break-word;
+}
+.tagsTitle{
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(24vw / 1920 * 100);
+    margin-top: 0;
+    margin-right: 3px;
+    margin-bottom: 0;
+}
+.courseInfoEditor{
+    font-size: calc(32vw / 1920 * 100);
+    font-family: Montserrat-Bold, sans-serif;
+    margin-top: 0;
+    margin-bottom: calc(54vh / 1080 * 100);
+}
+.courseInfoInput{
+    width: calc(433vw / 1920 * 100);
+    height: calc(62vh / 1080 * 100);
+    background-color: #FFFFFF;
+    border: 1px solid #d9d9d9;
+    font-family: Montserrat-bold, sans-serif;
+    font-size: calc(24vw / 1920 * 100);
+    border-radius: calc(14vh / 1080 * 100);
+    padding-left: calc(10vw / 1920 * 100);
+}
+.courseImageEditor{
+    margin-top: calc(3vh - (20vh / 1080 * 100));
+    font-family: Montserrat-Bold, sans-serif;
+    font-size: calc(24vw / 1920 * 100);
+    margin-bottom: 0;
+}
+.courseImageDownload{
+    width: calc(32vw / 1920 * 100);
+    height: calc(32vh / 1080 * 100);
+    margin-left: calc(25vw / 1920 * 100);
+    cursor: pointer;
+}
+.imageName{
+    font-size: calc(24vw / 1920 * 100);
+    font-family: Montserrat-Bold, sans-serif;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #3E3BFF;
 }

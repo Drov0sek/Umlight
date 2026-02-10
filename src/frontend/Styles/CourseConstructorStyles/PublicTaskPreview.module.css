@@ -64,3 +64,21 @@
     color: #FF0000;
     margin-bottom: calc(25vh / 1080 * 100);
 }
+.image{
+    max-height: calc(300vh / 1080 * 100);
+    max-width: calc(400vw / 1920 * 100);
+    margin-top: calc(35vh / 1080 * 100);
+    margin-right: calc(20vw / 1920 * 100);
+}
+.material{
+    font-family: Montserrat-bold, sans-serif;
+    color: #3E3BFF;
+    font-size: calc(16vw / 1920 * 100);
+    margin-top: calc(10vh / 1080 * 100);
+    margin-bottom: 0;
+    max-width: calc(400vw / 1920 * 100);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: calc(20vw / 1920 * 100);
+}

@@ -32,7 +32,11 @@ type EditLessonsState = {
     lessonsMaterials : LessonMaterialType[],
     currentLesson : CurrentLessonType,
     lessonPublicTasks : PracticeLessonPublicTaskType[]
-    lessonOwnTasks : PracticeLessonOwnTaskType[]
+    lessonOwnTasks : PracticeLessonOwnTaskType[],
+    tags : string[],
+    name : string,
+    time : number,
+    image : File
 };
 type CurrentLessonType = {
     numberOfLesson : number,
@@ -57,13 +61,17 @@ const initialState: EditLessonsState = {
     moduleLessons: {},
     modules: [],
     description : '',
+    name : '',
+    time : 0,
     lessonsMaterials : [],
     currentLesson : {
         numberOfLesson : 0,
         moduleName : ''
     },
     lessonPublicTasks : [],
-    lessonOwnTasks : []
+    lessonOwnTasks : [],
+    tags : [],
+    image : new File([], '', { type: '' })
 };
 
 export const editLessonsReducer = createSlice({
@@ -107,7 +115,19 @@ export const editLessonsReducer = createSlice({
         },
         deleteLessonOwnTask : (state, {payload} : PayloadAction<PracticeLessonOwnTaskType>) => {
             state.lessonOwnTasks = state.lessonOwnTasks.filter(e => !_.isEqual(e, payload))
+        },
+        setUserCourseTags : (state, {payload} : PayloadAction<string[]>) => {
+            state.tags = payload
+        },
+        setCourseName : (state, {payload} : PayloadAction<string>) => {
+            state.name = payload
+        },
+        setCourseTime : (state, {payload} : PayloadAction<number>) => {
+            state.time = payload
+        },
+        setCourseImage : (state, {payload} : PayloadAction<File>) => {
+            state.image = payload
         }
 }})
-export const { setReduxModulesLessons, setReduxModules, setReduxDesc, setReduxLessonMaterials, setLesson, setCurrentLesson, addLessonTask, deleteLessonPublicTask, addOwnLessonTask, deleteLessonOwnTask} = editLessonsReducer.actions
+export const { setReduxModulesLessons, setReduxModules, setReduxDesc, setReduxLessonMaterials, setLesson, setCurrentLesson, addLessonTask, deleteLessonPublicTask, addOwnLessonTask, deleteLessonOwnTask, setUserCourseTags, setCourseTime, setCourseName, setCourseImage} = editLessonsReducer.actions
 export default editLessonsReducer.reducer

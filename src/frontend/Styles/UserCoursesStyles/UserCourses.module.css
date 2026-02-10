@@ -11,3 +11,10 @@
     bottom: 4vh;
     right: 3vw;
 }
+.userCoursesBlock{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 90vh;
+    overflow-y: auto;
+}
